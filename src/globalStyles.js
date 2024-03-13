@@ -12,7 +12,13 @@ h1,h2, h3, h4, h5, h6{
 *::-webkit-scrollbar {
   width: 0px;
 }
+ *{
+  box-sizing:border-box;
+ }
 
+ * a{
+  text-decoration:none;
+ }
 
 button { user-select: none; }
 
