@@ -20,7 +20,7 @@ h1,h2, h3, h4, h5, h6{
   text-decoration:none;
  }
 
-button { user-select: none; }
+button { user-select: none; cursor:pointer;}
 
 body{
  margin: 0;

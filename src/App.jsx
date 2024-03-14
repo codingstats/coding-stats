@@ -10,6 +10,10 @@ import GlobalStyle from "./globalStyles";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./Components/Themes";
 import { useState } from "react";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import { useSelector } from "react-redux";
+import { userRequest } from "./requestMethods";
 
 const Body = styled.div`
   background: ${(props) => props.theme.text};
@@ -27,6 +31,11 @@ const Body = styled.div`
 function App() {
   const [themeDark, setThemeDark] = useState(true);
 
+  const currentUser = useSelector((state) => state?.user?.currentUser);
+  userRequest.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${currentUser?.token}`;
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -38,6 +47,10 @@ function App() {
     },
     {
       path: "/:id",
+      element: <Profile themeDark={themeDark} setThemeDark={setThemeDark} />,
+    },
+    {
+      path: "/info/:id",
       element: <Individual themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
     {
@@ -49,6 +62,14 @@ function App() {
     {
       path: "/settings",
       element: <Settings themeDark={themeDark} setThemeDark={setThemeDark} />,
+    },
+    {
+      path: "/login",
+      element: <Login themeDark={themeDark} setThemeDark={setThemeDark} />,
+    },
+    {
+      path: "/signup",
+      element: <Register themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
   ]);
 

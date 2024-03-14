@@ -1,67 +1,74 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Main from "../Components/Main";
 import NavBar from "../Components/NavBar";
-import { Link } from "react-router-dom";
-import MiniStat from "../Components/MiniStat";
-import gfgLogo from "../assets/gfg.png";
-import leetcodeLogo from "../assets/leetcode.png";
-import codeforcesLogo from "../assets/codeforces.png";
+import { useNavigate } from "react-router";
 
-const Individuals = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: max-content;
-
-  h2 {
-    margin-bottom: 30px;
+const About = styled.div`
+  text-align: center;
+  h1 {
+    font-size: 100px;
+    color: ${(props) => props.theme.accent};
+    margin-bottom: 40px;
+    filter: drop-shadow(
+      4px 4px 4px rgba(${(props) => props.theme.textRgba}, 0.4)
+    );
   }
-
-  a {
-    width: 100%;
+  p {
+    margin-bottom: 40px;
   }
 `;
-
-const Cumulative = styled.div`
-  margin-top: 40px;
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: max-content;
+
+  input {
+    width: 400px;
+    padding: 15px 30px;
+    border: solid 2px ${(props) => props.theme.text};
+    border-radius: 30px;
+    margin-bottom: 20px;
+    background: none;
+    color: ${(props) => props.theme.text};
+    box-shadow: 1px 1px 4px ${(props) => props.theme.text};
+  }
+  button {
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: none;
+    border: solid 2px ${(props) => props.theme.text};
+    color: ${(props) => props.theme.text};
+    filter: drop-shadow(1px 1px 4px ${(props) => props.theme.text});
+  }
 `;
 
 const Home = ({ themeDark, setThemeDark }) => {
-  useEffect(() => {
-    console.log("first", setThemeDark);
-  }, []);
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const searchFunction = () => {
+    navigate(`/${username}`);
+  };
 
   return (
-    <div>
+    <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
       <Main>
-        <Individuals>
-          <h2>Individual Progress</h2>
-          <Link to="/gfg">
-            <MiniStat siteLogo={gfgLogo} />
-          </Link>
-          <Link to="/leetcode">
-            <MiniStat siteLogo={leetcodeLogo} />
-          </Link>
-          <Link to="/codeforces">
-            <MiniStat siteLogo={codeforcesLogo} />
-          </Link>
-        </Individuals>
-
-        <Cumulative>
-          <h2>Cumulative Profress</h2>
-        </Cumulative>
+        <About>
+          <h1>Coding Stats</h1>
+          <p>One place to track all your coding progres.</p>
+        </About>
+        <Form onSubmit={searchFunction}>
+          <input
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+            type="text"
+          />
+          <button type="submit">Search</button>
+        </Form>
       </Main>
-    </div>
+    </>
   );
 };
 

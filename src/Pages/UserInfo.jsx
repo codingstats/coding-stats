@@ -59,7 +59,7 @@ const Individuals = styled.div`
   }
 `;
 
-const Profile = ({ themeDark, setThemeDark }) => {
+const UserInfo = ({ themeDark, setThemeDark }) => {
   return (
     <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
@@ -68,7 +68,6 @@ const Profile = ({ themeDark, setThemeDark }) => {
           <div className="info-section">
             <h1>Name Name</h1>
             <h3>@username</h3>
-            <p>email@mail.com</p>
           </div>
           <img src={image} alt="profile pic" />
         </Info>
@@ -93,4 +92,4 @@ const Profile = ({ themeDark, setThemeDark }) => {
   );
 };
 
-export default Profile;
+export default UserInfo;
