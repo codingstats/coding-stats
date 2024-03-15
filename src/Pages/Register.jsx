@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "../Components/NavBar";
 import Main from "../Components/Main";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../redux/apiCalls/apiCalls";
+import { errorReset } from "../redux/userSlice";
 
 const Form = styled.form`
   display: flex;
@@ -48,6 +51,9 @@ const Button = styled.button`
 `;
 
 const Register = ({ themeDark, setThemeDark }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state?.user?.currentUser);
   const [userData, setUserData] = useState({});
 
   const handleChange = (e) => {
@@ -58,6 +64,15 @@ const Register = ({ themeDark, setThemeDark }) => {
     e.preventDefault();
     signup(dispatch, userData);
   };
+
+  useEffect(() => {
+    if (currentUser === null) navigate("/profile");
+    dispatch(errorReset());
+  }, [currentUser]);
+
+  useEffect(() => {
+    dispatch(errorReset());
+  }, []);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const profileSlice = createSlice({
-  name: "profile",
+export const searchSlice = createSlice({
+  name: "search",
   initialState: {
     user: null,
     platforms: [],
@@ -9,17 +9,13 @@ export const profileSlice = createSlice({
     error: false,
   },
   reducers: {
-    profileStart: (state) => {
+    searchStart: (state) => {
       state.isFetching = true;
     },
-    profileSuccess: (state, action) => {
+    searchSuccess: (state, action) => {
       state.isFetching = false;
       state.error = false;
       state.user = action.payload.user;
-    },
-    platformSetSuccess: (state) => {
-      state.isFetching = false;
-      state.error = false;
     },
     platformFetchSuccess: (state, action) => {
       state.isFetching = false;
@@ -27,11 +23,11 @@ export const profileSlice = createSlice({
       state.platforms = action.payload.platforms;
     },
 
-    profileFailure: (state) => {
+    searchFailure: (state) => {
       state.isFetching = false;
       state.error = true;
     },
-    clearProfile: (state) => {
+    clearsearch: (state) => {
       state.isFetching = false;
       state.error = false;
       state.user = null;
@@ -41,11 +37,11 @@ export const profileSlice = createSlice({
 });
 
 export const {
-  profileStart,
-  profileFailure,
-  profileSuccess,
+  searchStart,
+  searchFailure,
+  searchSuccess,
   platformSetSuccess,
   platformFetchSuccess,
-  clearProfile,
-} = profileSlice.actions;
-export default profileSlice.reducer;
+  clearsearch,
+} = searchSlice.actions;
+export default searchSlice.reducer;

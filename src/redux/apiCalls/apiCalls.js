@@ -10,7 +10,7 @@ import {
 export const login = async (dispatch, user) => {
   dispatch(userStart());
   try {
-    const res = await publicRequest.post("/users/login", user);
+    const res = await publicRequest.post("/user/login", user);
     dispatch(loginSuccess(res.data));
   } catch (error) {
     dispatch(userFailure(error?.response?.data?.message));
@@ -20,7 +20,7 @@ export const login = async (dispatch, user) => {
 export const signup = async (dispatch, user) => {
   dispatch(userStart());
   try {
-    const res = await publicRequest.post("/users/signup", user);
+    const res = await publicRequest.post("/user/signup", user);
     login(dispatch, { username: user.username, password: user.password });
   } catch (error) {
     dispatch(userFailure(error?.response?.data?.message));

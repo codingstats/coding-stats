@@ -1,8 +1,13 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import NavBar from "../Components/NavBar";
 import Main from "../Components/Main";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { clearProfile } from "../redux/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/apiCalls/apiCalls";
+import { getPlatforms, getProfile } from "../redux/apiCalls/profileApiCalls";
 
 const Form = styled.form`
   height: 80%;
@@ -92,11 +97,31 @@ const Button = styled.button`
 `;
 
 const Login = ({ themeDark, setThemeDark }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state?.user?.currentUser?.data);
+
+  const [userData, setUserData] = useState({});
+
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(clearProfile());
+    await login(dispatch, userData);
+    await getProfile(dispatch, userData?.username);
+    // call only if platforms added
+    if (currentUser?.user?.codingPlatforms.length !== 0)
+      await getPlatforms(dispatch, currentUser?.user?.codingPlatforms);
+  };
+
   return (
     <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
       <Main>
-        <Form action="" className="login" onSubmit={(e) => handleSubmit(e)}>
+        <Form className="login" onSubmit={(e) => handleSubmit(e)}>
           <h1>Login</h1>
           <Input
             onChange={(e) => handleChange(e)}

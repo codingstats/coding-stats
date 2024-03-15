@@ -1,14 +1,19 @@
-import React from "react";
 import NavBar from "../Components/NavBar";
 import Main from "../Components/Main";
 import image from "../assets/image.png";
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MiniStat from "../Components/MiniStat";
 import gfgLogo from "../assets/gfg.png";
 import leetcodeLogo from "../assets/leetcode.png";
 import codeforcesLogo from "../assets/codeforces.png";
+import { useEffect } from "react";
+import {
+  getSearchedPlatforms,
+  getSearchedProfile,
+} from "../redux/apiCalls/searchApiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cumulative = styled.div`
   margin-top: 40px;
@@ -60,14 +65,33 @@ const Individuals = styled.div`
 `;
 
 const UserInfo = ({ themeDark, setThemeDark }) => {
+  const pathname = useLocation().pathname.split("/")[1];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector(
+    (state) => state?.user?.currentUser?.data?.user?.username
+  );
+  const profile = useSelector((state) => state?.search?.user);
+  const platformList = profile.codingPlatforms;
+
+  const fetchProfile = async (pathname) => {
+    await getSearchedProfile(dispatch, pathname);
+    await getSearchedPlatforms(dispatch, platformList);
+  };
+
+  useEffect(() => {
+    if (currentUser === profile?.username) navigate("/profile");
+    fetchProfile(pathname);
+  }, []);
+
   return (
     <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
       <Main>
         <Info>
           <div className="info-section">
-            <h1>Name Name</h1>
-            <h3>@username</h3>
+            <h1>{profile?.name}</h1>
+            <h3>{`@${profile?.username}`}</h3>
           </div>
           <img src={image} alt="profile pic" />
         </Info>

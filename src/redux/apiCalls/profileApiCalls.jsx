@@ -1,11 +1,16 @@
-import axios from "axios";
-import { profileFailure, profileStart, profileSuccess } from "../profileSlice";
-import { publicRequest } from "../../requestMethods";
+import {
+  platformFetchSuccess,
+  platformSetSuccess,
+  profileFailure,
+  profileStart,
+  profileSuccess,
+} from "../profileSlice";
+import { publicRequest, userRequest } from "../../requestMethods";
 
-export const getProfile = async (dispatch) => {
+export const getProfile = async (dispatch, user) => {
   dispatch(profileStart());
   try {
-    const res = await publicRequest.get("/users/profile");
+    const res = await userRequest.get(`/user/profile/${user}`);
     dispatch(
       profileSuccess({
         user: res.data.data.user,
@@ -15,13 +20,30 @@ export const getProfile = async (dispatch) => {
     dispatch(profileFailure());
   }
 };
-export const getPlatforms = async (dispatch) => {
+
+export const setPlatform = async (dispatch, platform, user) => {
   dispatch(profileStart());
   try {
-    const res1 = await publicRequest.get("/users/platform1");
-    const res2 = await publicRequest.get("/users/platform2");
-    const res3 = await publicRequest.get("/users/platform1");
-    const platforms = [res1, res2, res3];
+    await userRequest.post("/user/addCodingPlatform", platform);
+    await dispatch(platformSetSuccess());
+    await getProfile(dispatch, user);
+  } catch (error) {
+    dispatch(profileFailure());
+  }
+};
+
+export const getPlatforms = async (dispatch, platformList) => {
+  dispatch(profileStart());
+  try {
+    const platforms = [];
+    platformList.forEach(async (platform) => {
+      const res = await publicRequest.get(
+        `/${platform.platformName.toLowerCase()}/userdetails/${
+          platform.platformHandler
+        }`
+      );
+      platforms.push(res);
+    });
     dispatch(
       platformFetchSuccess({
         platforms: platforms,

@@ -14,6 +14,8 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import { useSelector } from "react-redux";
 import { userRequest } from "./requestMethods";
+import CodingPlatforms from "./Pages/CodingPlatforms";
+import UserInfo from "./Pages/UserInfo";
 
 const Body = styled.div`
   background: ${(props) => props.theme.text};
@@ -32,6 +34,7 @@ function App() {
   const [themeDark, setThemeDark] = useState(true);
 
   const currentUser = useSelector((state) => state?.user?.currentUser);
+
   userRequest.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${currentUser?.token}`;
@@ -47,7 +50,7 @@ function App() {
     },
     {
       path: "/:id",
-      element: <Profile themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <UserInfo themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
     {
       path: "/info/:id",
@@ -68,7 +71,13 @@ function App() {
       element: <Login themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
     {
-      path: "/signup",
+      path: "/select-platforms",
+      element: (
+        <CodingPlatforms themeDark={themeDark} setThemeDark={setThemeDark} />
+      ),
+    },
+    {
+      path: "/register",
       element: <Register themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
   ]);
