@@ -4,10 +4,10 @@ import Main from "../Components/Main";
 
 const Individual = ({ themeDark, setThemeDark }) => {
   return (
-    <div>
+    <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
-      <Main />
-    </div>
+      <Main></Main>
+    </>
   );
 };
 

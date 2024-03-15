@@ -1,9 +1,10 @@
 import {
-  platformFetchSuccess,
+  platformsFetchSuccess,
   platformSetSuccess,
   profileFailure,
   profileStart,
   profileSuccess,
+  heatmapsFetchSuccess,
 } from "../profileSlice";
 import { publicRequest, userRequest } from "../../requestMethods";
 
@@ -32,23 +33,60 @@ export const setPlatform = async (dispatch, platform, user) => {
   }
 };
 
-export const getPlatforms = async (dispatch, platformList) => {
+export const getPlatforms = async (dispatch, platforms) => {
   dispatch(profileStart());
   try {
-    const platforms = [];
-    platformList.forEach(async (platform) => {
+    const payload = [];
+    await platforms.forEach(async (platform) => {
       const res = await publicRequest.get(
         `/${platform.platformName.toLowerCase()}/userdetails/${
           platform.platformHandler
         }`
       );
-      platforms.push(res);
+
+      payload.filter((obj) => obj.profileLink == res.data.data.profileLink)
+        .length === 0;
+
+      payload.push(res.data.data);
+
+      if (payload.length === platforms.length) {
+        dispatch(
+          platformsFetchSuccess({
+            platforms: payload,
+          })
+        );
+      }
     });
-    dispatch(
-      platformFetchSuccess({
-        platforms: platforms,
-      })
-    );
+  } catch (error) {
+    dispatch(profileFailure());
+  }
+};
+
+export const getHeatmaps = async (dispatch, platforms) => {
+  dispatch(profileStart());
+  try {
+    const payload = [];
+    await platforms.forEach(async (platform) => {
+      const res = await publicRequest.post(
+        `/${platform.platformName.toLowerCase()}/userHeatMap`,
+        {
+          username: platform.platformHandler,
+          userid: platform.platformUserId,
+          year: 2024,
+        }
+      );
+      console.log(res.data.data);
+      payload.filter((obj) => obj.profileLink == res.data.data.profileLink)
+        .length === 0;
+      payload.push(res.data.data);
+      if (payload.length === platforms.length) {
+        dispatch(
+          heatmapsFetchSuccess({
+            platforms: payload,
+          })
+        );
+      }
+    });
   } catch (error) {
     dispatch(profileFailure());
   }

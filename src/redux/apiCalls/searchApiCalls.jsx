@@ -1,5 +1,6 @@
 import {
-  platformFetchSuccess,
+  heatmapsFetchSuccess,
+  platformsFetchSuccess,
   searchFailure,
   searchStart,
   searchSuccess,
@@ -20,23 +21,57 @@ export const getSearchedProfile = async (dispatch, user) => {
   }
 };
 
-export const getSearchedPlatforms = async (dispatch, platformList) => {
+export const getSearchedPlatforms = async (dispatch, platforms) => {
   dispatch(searchStart());
   try {
-    const platforms = [];
-    platformList.forEach(async (platform) => {
+    const payload = [];
+    await platforms.forEach(async (platform) => {
       const res = await publicRequest.get(
         `/${platform.platformName.toLowerCase()}/userdetails/${
           platform.platformHandler
         }`
       );
-      platforms.push(res);
+      payload.filter((obj) => obj.profileLink == res.data.data.profileLink)
+        .length === 0;
+      payload.push(res.data.data);
+      if (payload.length === platforms.length) {
+        dispatch(
+          platformsFetchSuccess({
+            platforms: payload,
+          })
+        );
+      }
     });
-    dispatch(
-      platformFetchSuccess({
-        platforms: platforms,
-      })
-    );
+  } catch (error) {
+    dispatch(searchFailure());
+  }
+};
+
+export const getSearchedHeatmaps = async (dispatch, platforms) => {
+  dispatch(searchStart());
+  try {
+    const payload = [];
+    await platforms.forEach(async (platform) => {
+      const res = await publicRequest.post(
+        `/${platform.platformName.toLowerCase()}/userHeatMap`,
+        {
+          username: platform.platformHandler,
+          userid: platform.platformUserId,
+          year: 2024,
+        }
+      );
+      console.log(res.data.data);
+      payload.filter((obj) => obj.profileLink == res.data.data.profileLink)
+        .length === 0;
+      payload.push(res.data.data);
+      if (payload.length === platforms.length) {
+        dispatch(
+          heatmapsFetchSuccess({
+            platforms: payload,
+          })
+        );
+      }
+    });
   } catch (error) {
     dispatch(searchFailure());
   }

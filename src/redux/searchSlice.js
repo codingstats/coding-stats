@@ -5,6 +5,7 @@ export const searchSlice = createSlice({
   initialState: {
     user: null,
     platforms: [],
+    heatmaps: [],
     isFetching: false,
     error: false,
   },
@@ -17,12 +18,16 @@ export const searchSlice = createSlice({
       state.error = false;
       state.user = action.payload.user;
     },
-    platformFetchSuccess: (state, action) => {
+    platformsFetchSuccess: (state, action) => {
       state.isFetching = false;
       state.error = false;
       state.platforms = action.payload.platforms;
     },
-
+    heatmapsFetchSuccess: (state, action) => {
+      state.isFetching = false;
+      state.error = false;
+      state.heatmaps = action.payload.platforms;
+    },
     searchFailure: (state) => {
       state.isFetching = false;
       state.error = true;
@@ -41,7 +46,8 @@ export const {
   searchFailure,
   searchSuccess,
   platformSetSuccess,
-  platformFetchSuccess,
+  platformsFetchSuccess,
+  heatmapsFetchSuccess,
   clearsearch,
 } = searchSlice.actions;
 export default searchSlice.reducer;

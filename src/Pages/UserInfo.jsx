@@ -10,6 +10,7 @@ import leetcodeLogo from "../assets/leetcode.png";
 import codeforcesLogo from "../assets/codeforces.png";
 import { useEffect } from "react";
 import {
+  getSearchedHeatmaps,
   getSearchedPlatforms,
   getSearchedProfile,
 } from "../redux/apiCalls/searchApiCalls";
@@ -71,18 +72,29 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
   const currentUser = useSelector(
     (state) => state?.user?.currentUser?.data?.user?.username
   );
-  const profile = useSelector((state) => state?.search?.user);
-  const platformList = profile.codingPlatforms;
+  const profile = useSelector((state) => state?.search);
+  const platformList = useSelector(
+    (state) => state?.search?.user?.codingPlatforms
+  );
 
   const fetchProfile = async (pathname) => {
     await getSearchedProfile(dispatch, pathname);
-    await getSearchedPlatforms(dispatch, platformList);
+    await getSearchedPlatforms(dispatch, profile?.user?.codingPlatforms);
+    await getSearchedHeatmaps(dispatch, profile?.user?.codingPlatforms);
+    console.log("profile");
   };
 
   useEffect(() => {
-    if (currentUser === profile?.username) navigate("/profile");
+    if (currentUser === pathname) navigate("/profile");
+    console.log(" check ");
     fetchProfile(pathname);
-  }, []);
+  }, [pathname]);
+
+  const getLogo = (name) => {
+    if (name == "gfg") return gfgLogo;
+    if (name == "leetcode") return leetcodeLogo;
+    if (name == "codeforces") return codeforcesLogo;
+  };
 
   return (
     <>
@@ -90,22 +102,33 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
       <Main>
         <Info>
           <div className="info-section">
-            <h1>{profile?.name}</h1>
-            <h3>{`@${profile?.username}`}</h3>
+            <h1>{profile?.user?.name}</h1>
+            <h3>{`@${profile?.user?.username}`}</h3>
           </div>
           <img src={image} alt="profile pic" />
         </Info>
         <Individuals>
           <h2>Individual Progress</h2>
-          <Link to="/info/gfg">
-            <MiniStat siteLogo={gfgLogo} />
-          </Link>
-          <Link to="/info/leetcode">
-            <MiniStat siteLogo={leetcodeLogo} />
-          </Link>
-          <Link to="/info/codeforces">
-            <MiniStat siteLogo={codeforcesLogo} />
-          </Link>
+          {profile?.user?.codingPlatforms.map((platform) => (
+            <Link
+              key={platform._id}
+              to={`/info/${platform.platformName.toLowerCase()}`}
+            >
+              <MiniStat
+                platform={
+                  profile?.platforms.filter(
+                    (p) => p.platformName === platform.platformName
+                  )[0]
+                }
+                heatmap={
+                  profile?.heatmaps.filter(
+                    (f) => f?.platformName === platform?.platformName
+                  )[0]
+                }
+                siteLogo={getLogo(platform.platformName.toLowerCase())}
+              />
+            </Link>
+          ))}
         </Individuals>
 
         <Cumulative>
