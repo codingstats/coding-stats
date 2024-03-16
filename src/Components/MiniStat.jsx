@@ -4,30 +4,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import Heatmap from "./Heatmap";
 
-const Container = styled.div`
-  background-color: rgba(
-    ${(props) => props.theme.textRgba},
-    ${(props) => (props.theme.dark ? 0.1 : 0.04)}
-  );
-  height: 180px;
-  width: 90%;
-  margin: 0px auto;
-  border-radius: 10px;
-  padding: 30px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  .img {
-    width: 100px;
-    margin-right: 40px;
-  }
-
-  img {
-    width: 100px;
-    height: 100%;
-  }
-`;
 const HeatMap = styled.div`
   display: flex;
   align-items: center;
@@ -37,6 +13,29 @@ const HeatMap = styled.div`
   svg {
     height: 100%;
     width: 100%;
+  }
+`;
+const Container = styled.div`
+  background-color: rgba(${(props) => props.theme.textRgba},
+  ${(props) => (props.theme.dark ? 0.1 : 0.04)});
+  height: 300px;
+  width: 90%;
+  margin: 0px auto;
+  border-radius: 10px;
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .img {
+    height: 120px;
+    margin-right: 40px;
+  }
+  //
+  img {
+    width: 120px;
+    //height: 100%;
   }
 `;
 const Text = styled.div`
