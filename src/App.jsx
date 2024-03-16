@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import { userRequest } from "./requestMethods";
 import CodingPlatforms from "./Pages/CodingPlatforms";
 import UserInfo from "./Pages/UserInfo";
+import DeleteAccount from "./Pages/ProfilePages/DeleteAccount";
+import ChangePassword from "./Pages/ProfilePages/ChangePassword";
 
 const Body = styled.div`
   background: ${(props) => props.theme.text};
@@ -47,6 +49,18 @@ function App() {
     {
       path: "/profile",
       element: <Profile themeDark={themeDark} setThemeDark={setThemeDark} />,
+    },
+    {
+      path: "/profile/changepassword",
+      element: (
+        <ChangePassword themeDark={themeDark} setThemeDark={setThemeDark} />
+      ),
+    },
+    {
+      path: "/profile/deleteaccount",
+      element: (
+        <DeleteAccount themeDark={themeDark} setThemeDark={setThemeDark} />
+      ),
     },
     {
       path: "/user/:id",

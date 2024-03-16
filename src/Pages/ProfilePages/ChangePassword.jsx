@@ -1,29 +1,13 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../../Components/Header";
-import staryBG from "../../assets/staryBG.mp4";
-import MainContainer from "../../Components/MainContainer";
-import NavBar from "../../Components/NavBar";
-import { userRequest } from "../../requestMethods";
-import { useDispatch, useSelector } from "react-redux";
-import { updatePassword } from "../../redux/apiCalls/apiCalls";
+import { useState } from "react";
 import Loader from "../../Components/Loader";
+import Main from "../../Components/Main";
+import NavBar from "../../Components/NavBar";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { updatePassword } from "../../redux/apiCalls/apiCalls";
 import { logOut } from "../../redux/userSlice";
 import { clearProfile } from "../../redux/profileSlice";
-import { clearQuizes } from "../../redux/quizSlice";
-
-const Main = styled.div`
-  height: 100vh;
-  width: 100vw;
-
-  video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
+import styled from "styled-components";
 
 const Form = styled.form`
   width: 100%;
@@ -44,7 +28,7 @@ const Form = styled.form`
   h1 {
     font-family: "Expletus Sans", sans-serif;
     font-size: 60px;
-    color: #ea5455;
+    color: ${(props) => props.theme.accent};
     margin-bottom: 40px;
 
     @media (max-width: 800px) {
@@ -77,7 +61,7 @@ const Input = styled.input`
 const Button = styled.button`
   margin: 20px;
   padding: 20px 40px;
-  background-color: #ea5455;
+  background-color: ${(props) => props.theme.accent};
   border-radius: 40px;
   font-size: 20px;
   font-family: "Expletus Sans", sans-serif;
@@ -90,7 +74,7 @@ const Button = styled.button`
   }
 `;
 
-const ChangePassword = () => {
+const ChangePassword = ({ themeDark, setThemeDark }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -111,17 +95,15 @@ const ChangePassword = () => {
       navigate("/user");
       dispatch(logOut());
       dispatch(clearProfile());
-      dispatch(clearQuizes());
     } else {
       setOldPassword("");
     }
   };
 
   return (
-    <Main>
-      <video src={staryBG} autoPlay loop muted></video>
-      <Header />
-      <MainContainer>
+    <>
+      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <Main>
         {isFetching && <Loader />}
         {!isFetching && (
           <Form action="" onSubmit={(e) => handleSubmit(e)}>
@@ -152,10 +134,8 @@ const ChangePassword = () => {
             <Button type="submit">Submit</Button>
           </Form>
         )}
-      </MainContainer>
-
-      <NavBar />
-    </Main>
+      </Main>
+    </>
   );
 };
 

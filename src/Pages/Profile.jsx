@@ -104,7 +104,6 @@ const Profile = ({ themeDark, setThemeDark }) => {
   const fetchProfile = async (user) => {
     await getProfile(dispatch, user);
     console.log(profile);
-    await fetchProfileData();
   };
 
   const fetchProfileData = async () => {
@@ -117,7 +116,10 @@ const Profile = ({ themeDark, setThemeDark }) => {
     fetchProfile(currentUser?.data?.user?.username);
   }, [currentUser]);
 
-  useEffect(() => {}, [profile]);
+  useEffect(() => {
+    console.log(profile?.user?.codingPlatforms);
+    fetchProfileData();
+  }, [profile?.user?.codingPlatforms]);
 
   const handleLogout = () => {
     dispatch(logOut());

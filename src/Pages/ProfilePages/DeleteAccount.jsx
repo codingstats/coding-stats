@@ -1,22 +1,10 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../../Components/Header";
-import staryBG from "../../assets/staryBG.mp4";
-import MainContainer from "../../Components/MainContainer";
-import NavBar from "../../Components/NavBar";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { deleteUser } from "../../redux/apiCalls/apiCalls";
-const Main = styled.div`
-  height: 100vh;
-  width: 100vw;
-  video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`;
+import styled from "styled-components";
+import NavBar from "../../Components/NavBar";
+import Main from "../../Components/Main";
+import { useDispatch } from "react-redux";
 
 const Form = styled.form`
   width: 100%;
@@ -37,7 +25,7 @@ const Form = styled.form`
   h1 {
     font-family: "Expletus Sans", sans-serif;
     font-size: 60px;
-    color: #ea5455;
+    color: ${(props) => props.theme.accent};
     margin-bottom: 40px;
 
     @media (max-width: 800px) {
@@ -70,7 +58,7 @@ const Input = styled.input`
 const Button = styled.button`
   margin: 20px;
   padding: 20px 40px;
-  background-color: #ea5455;
+  background-color: ${(props) => props.theme.accent};
   border-radius: 40px;
   font-size: 20px;
 
@@ -83,7 +71,8 @@ const Button = styled.button`
     margin-top: -0px;
   }
 `;
-const DeleteAccount = () => {
+
+const DeleteAccount = ({ themeDark, setThemeDark }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -92,13 +81,14 @@ const DeleteAccount = () => {
     try {
       await deleteUser(dispatch, password);
       navigate("/login");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
-    <Main>
-      <video src={staryBG} autoPlay loop muted></video>
-      <Header />
-      <MainContainer>
+    <>
+      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <Main>
         <Form action="" onSubmit={(e) => handleSubmit(e)}>
           <h1>Delete Account</h1>
 
@@ -112,10 +102,8 @@ const DeleteAccount = () => {
 
           <Button type="submit">Delete Account</Button>
         </Form>
-      </MainContainer>
-
-      <NavBar />
-    </Main>
+      </Main>
+    </>
   );
 };
 
