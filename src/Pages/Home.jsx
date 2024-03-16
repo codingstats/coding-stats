@@ -48,7 +48,7 @@ const Home = ({ themeDark, setThemeDark }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const searchFunction = () => {
-    navigate(`/${username}`);
+    navigate(`/user/${username}`);
   };
 
   return (

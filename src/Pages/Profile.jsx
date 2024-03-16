@@ -21,27 +21,33 @@ import {
   getProfile,
 } from "../redux/apiCalls/profileApiCalls";
 import CumulativeHeatMap from "../Components/CumulativeHeatMap";
+import { logOut } from "../redux/userSlice";
+import { clearProfile } from "../redux/profileSlice";
 
-const Cumulative = styled.div`
-  margin-top: 40px;
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Info = styled.div`
+  order: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
-  height: max-content;
-`;
-
-const Info = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  width: 30%;
   height: 200px;
   padding-bottom: 20px;
   overflow: hidden;
-  border-bottom: solid 1px ${(props) => props.theme.text};
   margin-bottom: 40px;
+
+  .info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
   .info-section {
     display: flex;
     flex-direction: column;
@@ -52,6 +58,16 @@ const Info = styled.div`
   img {
     height: 100%;
   }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+`;
+
+const Data = styled.div`
+  width: 65%;
 `;
 
 const Individuals = styled.div`
@@ -70,17 +86,30 @@ const Individuals = styled.div`
     width: 100%;
   }
 `;
-
+const Cumulative = styled.div`
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: max-content;
+`;
 const Profile = ({ themeDark, setThemeDark }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.user?.currentUser);
+  const profile = useSelector((state) => state?.profile);
 
   const fetchProfile = async (user) => {
     await getProfile(dispatch, user);
+    console.log(profile);
+    await fetchProfileData();
+  };
+
+  const fetchProfileData = async () => {
     await getPlatforms(dispatch, profile?.user?.codingPlatforms);
     await getHeatmaps(dispatch, profile?.user?.codingPlatforms);
-    console.log("profile");
   };
 
   useEffect(() => {
@@ -88,7 +117,12 @@ const Profile = ({ themeDark, setThemeDark }) => {
     fetchProfile(currentUser?.data?.user?.username);
   }, [currentUser]);
 
-  const profile = useSelector((state) => state?.profile);
+  useEffect(() => {}, [profile]);
+
+  const handleLogout = () => {
+    dispatch(logOut());
+    dispatch(clearProfile());
+  };
 
   const getLogo = (name) => {
     if (name == "gfg") return gfgLogo;
@@ -100,53 +134,64 @@ const Profile = ({ themeDark, setThemeDark }) => {
     <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
       <Main>
-        <Info>
-          <div className="info-section">
-            <h1>{profile?.user?.name}</h1>
-            <h3>{`@${profile?.user?.username}`}</h3>
-            <p>{profile?.user?.email}</p>
-          </div>
-          <img src={image} alt="profile pic" />
-        </Info>
-        {!profile?.user?.codingPlatforms?.length && (
-          <Individuals>
-            <h2>No Coding Platforms Submitted</h2>
-          </Individuals>
-        )}
-        {profile?.user?.codingPlatforms?.length !== 0 && (
-          <>
-            <Individuals>
-              <h2>Individual Progress</h2>
-              {profile?.user?.codingPlatforms?.map((platform) => (
-                <Link
-                  key={platform?._id}
-                  to={`/info/${platform?.platformName?.toLowerCase()}`}
-                >
-                  <MiniStat
-                    platform={
-                      profile?.platforms?.filter(
-                        (p) => p?.platformName === platform?.platformName
-                      )[0]
-                    }
-                    heatmap={
-                      profile?.heatmaps?.filter(
-                        (f) => f?.platformName === platform?.platformName
-                      )[0]
-                    }
-                    siteLogo={getLogo(platform?.platformName.toLowerCase())}
-                  />
-                </Link>
-              ))}
-            </Individuals>
-            <Cumulative>
-              <h2>Cumulative Profress</h2>
+        <Container>
+          <Info>
+            <div className="info">
+              <div className="info-section">
+                <h1>{profile?.user?.name}</h1>
+                <h3>{`@${profile?.user?.username}`}</h3>
+                <p>{profile?.user?.email}</p>
+              </div>
+              <img src={image} alt="profile pic" />
+            </div>
+            <div className="buttons">
+              <a onClick={handleLogout}>Log Out</a>
+              <Link to={"/profile/editprofile"}> Edit Profile </Link>
+              <Link to={"/profile/changepassword"}>Change Password</Link>
+              <Link to={"/profile/deleteaccount"}>Delete Account</Link>
+            </div>
+          </Info>
 
-              <CumulativeHeatMap
-                data={profile?.heatmaps?.map((heatmap) => heatmap.heatmapData)}
-              />
-            </Cumulative>
-          </>
-        )}
+          <Data>
+            {!profile?.user?.codingPlatforms?.length && (
+              <Individuals>
+                <h2>No Coding Platforms Submitted</h2>
+              </Individuals>
+            )}
+            {profile?.user?.codingPlatforms?.length !== 0 && (
+              <>
+                <Individuals>
+                  <h2>Individual Progress</h2>
+                  {profile?.user?.codingPlatforms?.map((platform) => (
+                    <MiniStat
+                      key={platform?._id}
+                      platform={
+                        profile?.platforms?.filter(
+                          (p) => p?.platformName === platform?.platformName
+                        )[0]
+                      }
+                      heatmap={
+                        profile?.heatmaps?.filter(
+                          (f) => f?.platformName === platform?.platformName
+                        )[0]
+                      }
+                      siteLogo={getLogo(platform?.platformName.toLowerCase())}
+                    />
+                  ))}
+                </Individuals>
+                <Cumulative>
+                  <h2>Cumulative Profress</h2>
+
+                  <CumulativeHeatMap
+                    data={profile?.heatmaps?.map(
+                      (heatmap) => heatmap.heatmapData
+                    )}
+                  />
+                </Cumulative>
+              </>
+            )}
+          </Data>
+        </Container>
       </Main>
     </>
   );

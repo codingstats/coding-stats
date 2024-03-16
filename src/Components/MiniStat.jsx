@@ -4,30 +4,29 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import Heatmap from "./Heatmap";
 
-const HeatMap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 4;
-
-  svg {
-    height: 100%;
-    width: 100%;
-  }
-`;
 const Container = styled.div`
-  background-color: rgba(${(props) => props.theme.textRgba},
-  ${(props) => (props.theme.dark ? 0.1 : 0.04)});
-  height: 300px;
+  background-color: rgba(
+    ${(props) => props.theme.textRgba},
+    ${(props) => (props.theme.dark ? 0.1 : 0.04)}
+  );
+  height: 500px;
   width: 90%;
   margin: 0px auto;
   border-radius: 10px;
-  padding: 30px 40px;
+  padding: 30px 50px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+`;
 
+const Top = styled.div`
+  height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   .img {
     height: 120px;
     margin-right: 40px;
@@ -37,25 +36,31 @@ const Container = styled.div`
     width: 120px;
     //height: 100%;
   }
+
+  .mid {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    width: calc(100% - 160 - 40%);
+  }
 `;
+
 const Text = styled.div`
-  width: max-content;
+  width: 40%;
   height: 100%;
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
   margin-left: 40px;
   .left {
-    height: 100%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 60px;
   }
   canvas {
     height: 100%;
-    margin-right: 30px;
   }
   .right {
     display: flex;
@@ -83,9 +88,22 @@ const Text = styled.div`
   }
 `;
 
+const HeatMap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  flex: 4;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+`;
+
 const MiniStat = ({ platform, heatmap, siteLogo }) => {
   ChartJS.register(ArcElement, Tooltip, Legend);
-  console.log(platform, heatmap);
   const data = {
     labels: [],
     datasets: [
@@ -107,29 +125,51 @@ const MiniStat = ({ platform, heatmap, siteLogo }) => {
 
   return (
     <Container>
-      <div className="img">
-        <img src={siteLogo} alt="logo" className="site" />
-      </div>
+      <Top>
+        <div className="img">
+          <img src={siteLogo} alt="logo" className="site" />
+        </div>
 
+        <div className="mid">
+          <h2>{platform?.handler}</h2>
+          <p>
+            <span className="heading">Platform: </span>
+            {platform?.platformName}
+          </p>
+          <p>
+            <a target="_blank" href={platform?.profileLink}>
+              Visit
+            </a>
+          </p>
+          <p>
+            <span className="heading">Rank: </span>
+            {platform?.rank}
+          </p>
+          <p>
+            <span className="heading">Streak: </span>
+            {platform?.streak}
+          </p>
+        </div>
+
+        <Text>
+          <div className="left">
+            <Doughnut data={data} options={options} />
+          </div>
+          <div className="right">
+            {platform?.submissionCount?.map((sub) => (
+              <span
+                key={sub.difficulty}
+                className={sub?.difficulty?.toLowerCase()}
+              >
+                {`${sub.difficulty}: ${sub.count}`}
+              </span>
+            ))}
+          </div>
+        </Text>
+      </Top>
       <HeatMap>
         {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={2024} />}
       </HeatMap>
-
-      <Text>
-        <div className="left">
-          <Doughnut data={data} options={options} />
-        </div>
-        <div className="right">
-          {platform?.submissionCount?.map((sub) => (
-            <span
-              key={sub.difficulty}
-              className={sub?.difficulty?.toLowerCase()}
-            >
-              {`${sub.difficulty}: ${sub.count}`}
-            </span>
-          ))}
-        </div>
-      </Text>
     </Container>
   );
 };

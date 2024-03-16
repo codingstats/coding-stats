@@ -67,7 +67,7 @@ const Individuals = styled.div`
 `;
 
 const UserInfo = ({ themeDark, setThemeDark }) => {
-  const pathname = useLocation().pathname.split("/")[1];
+  const pathname = useLocation().pathname.split("/")[2];
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(
@@ -77,19 +77,17 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
   const platformList = useSelector(
     (state) => state?.search?.user?.codingPlatforms
   );
-
   const fetchProfile = async (pathname) => {
     await getSearchedProfile(dispatch, pathname);
     await getSearchedPlatforms(dispatch, profile?.user?.codingPlatforms);
     await getSearchedHeatmaps(dispatch, profile?.user?.codingPlatforms);
-    console.log("profile");
   };
 
   useEffect(() => {
     if (currentUser === pathname) navigate("/profile");
     console.log(" check ");
     fetchProfile(pathname);
-  }, [pathname]);
+  }, [pathname, username]);
 
   const getLogo = (name) => {
     if (name == "gfg") return gfgLogo;
@@ -111,24 +109,20 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
         <Individuals>
           <h2>Individual Progress</h2>
           {profile?.user?.codingPlatforms.map((platform) => (
-            <Link
+            <MiniStat
               key={platform._id}
-              to={`/info/${platform.platformName.toLowerCase()}`}
-            >
-              <MiniStat
-                platform={
-                  profile?.platforms.filter(
-                    (p) => p.platformName === platform.platformName
-                  )[0]
-                }
-                heatmap={
-                  profile?.heatmaps.filter(
-                    (f) => f?.platformName === platform?.platformName
-                  )[0]
-                }
-                siteLogo={getLogo(platform.platformName.toLowerCase())}
-              />
-            </Link>
+              platform={
+                profile?.platforms.filter(
+                  (p) => p.platformName === platform.platformName
+                )[0]
+              }
+              heatmap={
+                profile?.heatmaps.filter(
+                  (f) => f?.platformName === platform?.platformName
+                )[0]
+              }
+              siteLogo={getLogo(platform.platformName.toLowerCase())}
+            />
           ))}
         </Individuals>
 

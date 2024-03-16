@@ -32,7 +32,6 @@ const CumulativeHeatMap = ({ data }) => {
       });
     });
 
-    console.log(combinedData);
     return combinedData;
   }
 

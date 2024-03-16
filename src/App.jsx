@@ -49,12 +49,8 @@ function App() {
       element: <Profile themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
     {
-      path: "/:id",
+      path: "/user/:id",
       element: <UserInfo themeDark={themeDark} setThemeDark={setThemeDark} />,
-    },
-    {
-      path: "/info/:id",
-      element: <Individual themeDark={themeDark} setThemeDark={setThemeDark} />,
     },
     {
       path: "/notifications",
