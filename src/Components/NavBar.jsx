@@ -1,67 +1,79 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import styled from "styled-components";
-import profile from "../assets/image.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import profile from "../assets/image.svg";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-  faBell,
-  faCloudMoon,
-  faCloudSun,
+    faBell, faCloudMoon, faCloudSun,
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/logo.png";
 import logoLight from "../assets/logo-light.png";
 
 const Container = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 50vw;
-  background-color: ${(props) => props.theme.accent};
-  height: 80px;
-  width: calc(100vw + 40px);
-  transform: rotate(-1.5deg) translateX(-50%);
-
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: ${(props) => props.theme.backgroundColor};
+  width: 100%;
+  //background: rgba(255, 255, 255, 0.2);
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  > div {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+  }
+
 `;
 
 const Navs = styled.div`
-  padding-left: 100px;
+  //padding-left: 100px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
+  
   img {
-    height: 140px;
-    margin-right: 60px;
+    height: 50px;
     transition: all 0.25s ease-in-out;
+
     &:hover {
       transform: scale(1.1);
     }
   }
 `;
+
 const Buttons = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  padding-right: 100px;
+  //background-color: blue;
+  align-content: center;
 `;
 
 const Theme = styled.div`
-  height: 60px;
+  //height: 60px;
   width: 60px;
-  margin-right: 60px;
-  border-radius: 50%;
-  box-shadow: inset 1px 1px 5px #00573d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  //margin-right: 60px;
+  //border-radius: 50%;
+  //box-shadow: inset 1px 1px 5px #00573d;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
   transition: all 0.25s ease-in-out;
-  color: ${(props) => props.theme.text};
+  color:  ${(props) => props.theme.text};
+
   &:active {
     transform: rotate(${(props) => (props.theme.dark ? "-20deg" : "20deg")});
   }
+
   &:hover {
     svg {
       transform: scale(1.2);
@@ -75,49 +87,63 @@ const Theme = styled.div`
   }
 `;
 const Profile = styled.div`
+  background-color: white;
+  border-radius: 100%;
+
   height: 40px;
   width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  border: 2px solid black;
+  padding: 5px;
+  box-sizing: border-box;
+
 
   img {
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
     object-fit: contain;
     border-radius: 50%;
     transition: all 0.25s ease-in-out;
+
     &:hover {
       transform: scale(1.15);
     }
   }
 `;
 
-const NavBar = ({ themeDark, setThemeDark }) => {
-  return (
-    <Container>
-      <Navs>
-        <Link to={"/"}>
-          <img src={themeDark ? logo : logoLight} alt="Coding Stats" />
-        </Link>
-        <Theme onClick={() => setThemeDark((p) => !p)}>
-          <FontAwesomeIcon icon={themeDark ? faCloudMoon : faCloudSun} />
-        </Theme>
-      </Navs>
-      <Buttons>
-        <Link to={"/notifications"}>
-          <Theme>
-            <FontAwesomeIcon icon={faBell} />
-          </Theme>
-        </Link>
-        <Profile>
-          <Link to={"/profile"}>
-            <img src={profile} alt="profile" />
-          </Link>
-        </Profile>
-      </Buttons>
-    </Container>
-  );
+const NavBar = ({themeDark, setThemeDark}) => {
+    return (<Container>
+        <div>
+            <Navs>
+                <Link to={"/"}>
+                    <img src={themeDark ? logo : logoLight} alt="Coding Stats"/>
+                </Link>
+            </Navs>
+
+            <Buttons>
+
+                <Theme onClick={() => setThemeDark((p) => !p)}>
+                    <FontAwesomeIcon icon={themeDark ? faCloudMoon : faCloudSun}/>
+                </Theme>
+
+                <Link to={"/notifications"}>
+                    <Theme>
+                        <FontAwesomeIcon icon={faBell}/>
+                    </Theme>
+                </Link>
+
+                <Profile>
+                    <Link to={"/profile"} style={{display: "flex"}}>
+                        <img src={profile} alt="profile"/>
+                    </Link>
+                </Profile>
+
+            </Buttons>
+        </div>
+    </Container>);
 };
 
 export default NavBar;

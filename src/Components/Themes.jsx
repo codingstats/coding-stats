@@ -1,20 +1,31 @@
 export const lightTheme = {
   dark: false,
-  body: "#e7decc",
+  body: "white",
   text: "#16161d",
-  accent: "#44807b",
+  accent: "#FA9EB2",
   fontFamily: "'Source Sans Pro', sans-serif",
   bodyRgba: "231, 222, 204",
   textRgba: "22,22,29",
   accentRgba: "127, 28, 207",
+
+  backgroundColor: "rgb(207,177,225, 0.15)",
+  backgroundGradient: "linear-gradient(45deg, rgba(207,177,225,0.15) 0%, rgba(187,204,237,0.15) 100%)",
+
+  colorSecondary: "#777777",
+
 };
 export const darkTheme = {
   dark: true,
   body: "#16161d",
-  text: "#e7decc",
-  accent: "#44807b",
+  text: "white",
+  accent: "#FA9EB2",
   fontFamily: "'Source Sans Pro', sans-serif",
   textRgba: "231, 222, 204",
   bodyRgba: "22,22,29",
   accentRgba: "127, 28, 207",
+
+  backgroundColor: "rgb(87,87,87)",
+  backgroundGradient: "linear-gradient(45deg, rgba(87,87,87,0.15) 0%, rgba(41,41,41,0.15) 100%)",
+
+  colorSecondary: "#c9c9c9"
 };

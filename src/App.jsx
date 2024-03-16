@@ -20,13 +20,16 @@ import DeleteAccount from "./Pages/ProfilePages/DeleteAccount";
 import ChangePassword from "./Pages/ProfilePages/ChangePassword";
 
 const Body = styled.div`
-  background: ${(props) => props.theme.text};
-  height: 100vh;
+  background-color: ${(props) => props.theme.backgroundColor};
+  
+  // background: ${(props) => props.theme.text};
+  //height: 100vh;
   width: 100vw;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;

@@ -19,6 +19,7 @@ function Heatmap({heatmapData, year}) {
             setTooltipData(null);
             return;
         }
+        console.log(event);
         setTooltipData({value, x: event.pageX, y: event.pageY});
     };
 
@@ -26,7 +27,7 @@ function Heatmap({heatmapData, year}) {
         setTooltipData(null);
     };
 
-    return (<div style={{height: "200px"}}>
+    return (<div style={{height: "200px", position: "relative"}}>
         <CalendarHeatmap
 
             startDate={new Date(`${year}-01-01`)}
@@ -66,7 +67,7 @@ function Heatmap({heatmapData, year}) {
             fontSize: "18px",
             padding: "4px",
             top: tooltipData.y,
-            left: tooltipData.x + 20
+            left: tooltipData.x
         }}>
             {tooltipData.value.count} submissions on {tooltipData.value.date}
         </div>)}

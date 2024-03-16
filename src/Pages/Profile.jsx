@@ -24,6 +24,7 @@ import Loader from "../Components/Loader";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  position: relative;
 `;
 
 const Info = styled.div`
@@ -38,6 +39,9 @@ const Info = styled.div`
   overflow: hidden;
   margin-bottom: 40px;
 
+  //position: sticky;
+  //top: 0;
+  
   .info {
     display: flex;
     align-items: center;
@@ -84,19 +88,20 @@ const Info = styled.div`
 `;
 
 const Data = styled.div`
-  width: 65%;
+  //width: 65%;
 `;
 
 const Individuals = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: max-content;
+  //height: max-content;
 
   h2 {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 
   a {
