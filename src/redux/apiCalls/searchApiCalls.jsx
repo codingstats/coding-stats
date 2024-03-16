@@ -1,4 +1,5 @@
 import {
+  clearsearch,
   heatmapsFetchSuccess,
   platformsFetchSuccess,
   searchFailure,
@@ -18,6 +19,7 @@ export const getSearchedProfile = async (dispatch, user) => {
     );
   } catch (error) {
     dispatch(searchFailure());
+    dispatch(clearsearch());
   }
 };
 

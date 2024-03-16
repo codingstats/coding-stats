@@ -11,11 +11,6 @@ import leetcodeLogo from "../assets/leetcode.png";
 import codeforcesLogo from "../assets/codeforces.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getSearchedHeatmaps,
-  getSearchedPlatforms,
-  getSearchedProfile,
-} from "../redux/apiCalls/searchApiCalls";
-import {
   getHeatmaps,
   getPlatforms,
   getProfile,
@@ -36,7 +31,7 @@ const Info = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 30%;
-  height: 200px;
+  height: max-content;
   padding-bottom: 20px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -56,13 +51,33 @@ const Info = styled.div`
     }
   }
   img {
-    height: 100%;
+    height: 100px;
   }
   .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
+    a {
+      margin: 20px;
+      padding: 14px 0px;
+      border: 1px solid #ea5455;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      font-size: small;
+      transition: all 0.25s ease;
+      overflow: hidden;
+      color: white;
+
+      &:hover {
+        letter-spacing: 1.2px;
+        color: #ea5455;
+        border: 1px solid #decdc3;
+      }
+    }
   }
 `;
 
@@ -117,7 +132,6 @@ const Profile = ({ themeDark, setThemeDark }) => {
   }, [currentUser]);
 
   useEffect(() => {
-    console.log(profile?.user?.codingPlatforms);
     fetchProfileData();
   }, [profile?.user?.codingPlatforms]);
 
@@ -148,7 +162,7 @@ const Profile = ({ themeDark, setThemeDark }) => {
             </div>
             <div className="buttons">
               <a onClick={handleLogout}>Log Out</a>
-              <Link to={"/profile/editprofile"}> Edit Profile </Link>
+              <Link to={"/select-platforms"}> Change Platforms</Link>
               <Link to={"/profile/changepassword"}>Change Password</Link>
               <Link to={"/profile/deleteaccount"}>Delete Account</Link>
             </div>
