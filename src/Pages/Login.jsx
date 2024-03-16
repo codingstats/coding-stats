@@ -111,10 +111,6 @@ const Login = ({ themeDark, setThemeDark }) => {
     e.preventDefault();
     dispatch(clearProfile());
     await login(dispatch, userData);
-    await getProfile(dispatch, userData?.username);
-    // call only if platforms added
-    if (currentUser?.user?.codingPlatforms.length !== 0)
-      await getPlatforms(dispatch, currentUser?.user?.codingPlatforms);
   };
 
   return (

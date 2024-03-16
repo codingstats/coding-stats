@@ -93,7 +93,7 @@ const MiniStat = ({ platform, heatmap, siteLogo }) => {
       {
         label: ["Solved"],
         data: platform?.submissionCount?.map((sub) => {
-          if (platform.submissionCount.length == 1) return sub.count;
+          if (platform?.submissionCount?.length == 1) return sub.count;
           else {
             if (sub.difficulty !== "All") return sub.count;
           }
@@ -121,7 +121,7 @@ const MiniStat = ({ platform, heatmap, siteLogo }) => {
           <Doughnut data={data} options={options} />
         </div>
         <div className="right">
-          {platform.submissionCount.map((sub) => (
+          {platform?.submissionCount?.map((sub) => (
             <span
               key={sub.difficulty}
               className={sub?.difficulty?.toLowerCase()}

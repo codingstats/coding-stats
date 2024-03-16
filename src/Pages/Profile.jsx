@@ -20,6 +20,7 @@ import {
   getPlatforms,
   getProfile,
 } from "../redux/apiCalls/profileApiCalls";
+import CumulativeHeatMap from "../Components/CumulativeHeatMap";
 
 const Cumulative = styled.div`
   margin-top: 40px;
@@ -94,7 +95,7 @@ const Profile = ({ themeDark, setThemeDark }) => {
     if (name == "leetcode") return leetcodeLogo;
     if (name == "codeforces") return codeforcesLogo;
   };
-  console.log(profile.platforms);
+  console.log(profile?.platforms);
   return (
     <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
@@ -112,33 +113,37 @@ const Profile = ({ themeDark, setThemeDark }) => {
             <h2>No Coding Platforms Submitted</h2>
           </Individuals>
         )}
-        {profile?.user?.codingPlatforms.length !== 0 && (
+        {profile?.user?.codingPlatforms?.length !== 0 && (
           <>
             <Individuals>
               <h2>Individual Progress</h2>
-              {profile?.user?.codingPlatforms.map((platform) => (
+              {profile?.user?.codingPlatforms?.map((platform) => (
                 <Link
-                  key={platform._id}
-                  to={`/info/${platform.platformName.toLowerCase()}`}
+                  key={platform?._id}
+                  to={`/info/${platform?.platformName?.toLowerCase()}`}
                 >
                   <MiniStat
                     platform={
-                      profile.platforms.filter(
-                        (p) => p.platformName === platform.platformName
+                      profile?.platforms?.filter(
+                        (p) => p?.platformName === platform?.platformName
                       )[0]
                     }
                     heatmap={
-                      profile.heatmaps.filter(
-                        (f) => f.platformName === platform.platformName
+                      profile?.heatmaps?.filter(
+                        (f) => f?.platformName === platform?.platformName
                       )[0]
                     }
-                    siteLogo={getLogo(platform.platformName.toLowerCase())}
+                    siteLogo={getLogo(platform?.platformName.toLowerCase())}
                   />
                 </Link>
               ))}
             </Individuals>
             <Cumulative>
               <h2>Cumulative Profress</h2>
+
+              <CumulativeHeatMap
+                data={profile?.heatmaps?.map((heatmap) => heatmap.heatmapData)}
+              />
             </Cumulative>
           </>
         )}
