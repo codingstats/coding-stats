@@ -91,7 +91,6 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
 
   useEffect(() => {
     if (currentUser === pathname) navigate("/profile");
-    console.log(" check ");
     fetchProfile(pathname);
   }, [pathname]);
 

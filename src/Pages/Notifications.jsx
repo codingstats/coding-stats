@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { publicRequest } from "../requestMethods";
+import MainCenter from "../Components/MainCenter";
+import Loader from "../Components/Loader";
 
 const Container = styled.div`
   width: 100%;
@@ -36,19 +38,23 @@ const Notifications = ({ themeDark, setThemeDark }) => {
   const currentUser = useSelector(
     (state) => state?.user?.currentUser?.data?.user?.username
   );
+  const [isFetching, setIsFetching] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [platforms, setPlatforms] = useState({});
   const apiCall = async () => {
-    const { error, ...res } = (await publicRequest.get("/notifications")).data
-      .data;
-    setPlatforms(res);
-    console.log(platforms);
-    // Object.entries(platforms).forEach((key, value) => {
-    //   console.log(value);
-    // });
-    //   <Platform key={key}>
-    //     {value?.forEach((notification) => console.log(notification))}
-    //   </Platform>
-    // ));
+    setIsFetching(true);
+    try {
+      const { error, ...res } = (await publicRequest.get("/notifications")).data
+        .data;
+      setPlatforms(res);
+      console.log(platforms);
+      setIsError(false);
+      setIsFetching(false);
+    } catch (error) {
+      setIsFetching(false);
+      setIsError(true);
+      console.log(error);
+    }
   };
   useEffect(() => {
     if (!currentUser) navigate("/login");
@@ -61,27 +67,44 @@ const Notifications = ({ themeDark, setThemeDark }) => {
   return (
     <>
       <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
-      <Main>
-        <Container>
-          <h1>Contest Notifications</h1>
-          <Platforms>
-            {Object.entries(platforms)?.map((platform) => (
-              <Platform key={platform[0]}>
-                <h2>{platform[0]}</h2>
-                {platform[1]?.map((noti) => (
-                  <Notification key={noti?.title}>
-                    <h4>{noti?.title}</h4>
-                    <p>{noti?.start}</p>
-                    <p>
-                      <a href={noti?.link}>Visit</a>
-                    </p>
-                  </Notification>
-                ))}
-              </Platform>
-            ))}
-          </Platforms>
-        </Container>
-      </Main>
+      {isFetching && (
+        <MainCenter>
+          <Loader />
+        </MainCenter>
+      )}
+      {!isFetching && (
+        <>
+          {isError && (
+            <MainCenter>
+              <h2>Something went wrong</h2>
+              <button onClick={() => navigate("/")}>Go Back</button>
+            </MainCenter>
+          )}
+          {!isError && (
+            <Main>
+              <Container>
+                <h1>Contest Notifications</h1>
+                <Platforms>
+                  {Object.entries(platforms)?.map((platform) => (
+                    <Platform key={platform[0]}>
+                      <h2>{platform[0]}</h2>
+                      {platform[1]?.map((noti) => (
+                        <Notification key={noti?.title}>
+                          <h4>{noti?.title}</h4>
+                          <p>{noti?.start}</p>
+                          <p>
+                            <a href={noti?.link}>Visit</a>
+                          </p>
+                        </Notification>
+                      ))}
+                    </Platform>
+                  ))}
+                </Platforms>
+              </Container>
+            </Main>
+          )}
+        </>
+      )}
     </>
   );
 };

@@ -66,7 +66,7 @@ const Register = ({ themeDark, setThemeDark }) => {
   };
 
   useEffect(() => {
-    if (currentUser === null) navigate("/profile");
+    if (currentUser !== null) navigate("/select-platforms");
     dispatch(errorReset());
   }, [currentUser]);
 

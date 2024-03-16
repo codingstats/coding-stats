@@ -106,9 +106,9 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
   const handleChange = (e) => {
     setPlatformData({ ...platformData, [e.target.name]: e.target.value });
   };
+
   const handleNext = () => {
-    console.log("mc");
-    getPlatforms(dispatch, currentUser, platformList);
+    navigate("/profile");
   };
 
   return (
