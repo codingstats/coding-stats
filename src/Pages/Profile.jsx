@@ -108,7 +108,7 @@ const Profile = ({ themeDark, setThemeDark }) => {
           </div>
           <img src={image} alt="profile pic" />
         </Info>
-        {!profile?.user?.codingPlatforms.length && (
+        {!profile?.user?.codingPlatforms?.length && (
           <Individuals>
             <h2>No Coding Platforms Submitted</h2>
           </Individuals>

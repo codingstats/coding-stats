@@ -15,6 +15,7 @@ import {
   getSearchedProfile,
 } from "../redux/apiCalls/searchApiCalls";
 import { useDispatch, useSelector } from "react-redux";
+import CumulativeHeatMap from "../Components/CumulativeHeatMap";
 
 const Cumulative = styled.div`
   margin-top: 40px;
@@ -133,6 +134,9 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
 
         <Cumulative>
           <h2>Cumulative Profress</h2>
+          <CumulativeHeatMap
+            data={profile?.heatmaps?.map((heatmap) => heatmap.heatmapData)}
+          />
         </Cumulative>
       </Main>
     </>
