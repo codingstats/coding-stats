@@ -21,6 +21,7 @@ import { clearProfile } from "../redux/profileSlice";
 import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
 
+// Styled components for styling
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -172,7 +173,9 @@ const Cumulative = styled.div`
   width: 100%;
   height: max-content;
 `;
+
 const Profile = () => {
+  // Hooks for navigation, dispatch, and selecting state from Redux store
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.user?.currentUser);
@@ -189,6 +192,7 @@ const Profile = () => {
     await getHeatmaps(dispatch, profile?.user?.codingPlatforms);
   };
 
+  // Effect hook to fetch profile data on component mount or update
   useEffect(() => {
     if (currentUser && pathname === currentUser?.data?.user?.username) {
       fetchProfile(currentUser?.data?.user?.username);
@@ -200,6 +204,7 @@ const Profile = () => {
       fetchProfileData();
   }, [profile?.user]);
 
+  // Function to handle logout
   const handleLogout = () => {
     navigate("/login");
     dispatch(logOut());
@@ -211,7 +216,9 @@ const Profile = () => {
     if (name == "leetcode") return leetcodeLogo;
     if (name == "codeforces") return codeforcesLogo;
   };
+
   console.log(profile?.platforms);
+   // Rendering profile page
   return (
     <>
       <NavBar />
