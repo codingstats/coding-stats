@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getPlatforms, setPlatform } from "../redux/apiCalls/profileApiCalls";
 
+// Styled components for form elements
 const FormContainer = styled.div`
   //height: 80%;
   width: max-content;
@@ -104,6 +105,7 @@ const Input = styled.input`
   }
 `;
 
+// Functional component for selecting coding platforms
 const CodingPlatforms = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

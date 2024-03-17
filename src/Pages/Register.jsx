@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../redux/apiCalls/apiCalls";
 import { errorReset } from "../redux/userSlice";
 
+// Styled components for styling
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -49,27 +50,31 @@ const Button = styled.button`
   cursor: pointer;
   font-family: "Expletus Sans", sans-serif;
 `;
-
+// Register component definition
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const [userData, setUserData] = useState({});
 
+   // Function to handle changes in form inputs
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     signup(dispatch, userData);
   };
-
+// useEffect hook to navigate to select-platforms page if user is already logged in and reset error state
+ 
   useEffect(() => {
     if (currentUser !== null) navigate("/select-platforms");
     dispatch(errorReset());
   }, [currentUser]);
 
+  // useEffect hook to reset error state on component mount
   useEffect(() => {
     dispatch(errorReset());
   }, []);

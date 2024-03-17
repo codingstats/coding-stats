@@ -9,6 +9,7 @@ import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
 import { toast } from "react-toastify";
 
+// Styled components for styling
 const Container = styled.div`
   width: 100%;
   height: max-content;
@@ -34,6 +35,7 @@ const Platform = styled.div`
 
 const Notification = styled.div``;
 
+// Notifications component definition
 const Notifications = () => {
   const navigate = useNavigate();
   const currentUser = useSelector(
@@ -42,6 +44,8 @@ const Notifications = () => {
   const [isFetching, setIsFetching] = useState(true);
   const [isError, setIsError] = useState(false);
   const [platforms, setPlatforms] = useState({});
+
+  // Function to fetch notifications from the server
   const apiCall = async () => {
     toast("Fetching Notifications");
     setIsFetching(true);
@@ -59,10 +63,13 @@ const Notifications = () => {
       console.log(error);
     }
   };
+
+  // useEffect hook to ensure user is logged in and fetch notifications on component mount
   useEffect(() => {
     if (!currentUser) navigate("/login");
     apiCall();
   }, []);
+  // useEffect hook to log platforms whenever platforms state changes
   useEffect(() => {
     console.log(Object.entries(platforms));
   }, [platforms]);

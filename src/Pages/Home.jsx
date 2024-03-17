@@ -5,6 +5,7 @@ import NavBar from "../Components/NavBar";
 import { useNavigate } from "react-router";
 import searchingPerson from "../assets/searching.jpg";
 
+// Styled components for styling the elements
 const About = styled.div`
   //background-color: red;
   //text-align: center;
@@ -71,6 +72,7 @@ const Form = styled.form`
   }
 `;
 
+// Functional component for Home page
 const Home = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");

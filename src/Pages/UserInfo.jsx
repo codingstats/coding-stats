@@ -20,6 +20,8 @@ import Loader from "../Components/Loader";
 import MainCenter from "../Components/MainCenter";
 import { toast } from "react-toastify";
 
+
+// Styled components for styling
 const Cumulative = styled.div`
   margin-top: 40px;
   display: flex;
@@ -69,6 +71,7 @@ const Individuals = styled.div`
   }
 `;
 
+// UserInfo component definition
 const UserInfo = () => {
   const pathname = useLocation().pathname.split("/")[2];
   const dispatch = useDispatch();
@@ -81,22 +84,27 @@ const UserInfo = () => {
   const platformList = useSelector(
     (state) => state?.search?.user?.codingPlatforms
   );
+
+    // Function to fetch profile data based on username
   const fetchProfile = async (pathname) => {
     await getSearchedProfile(dispatch, pathname, navigate);
     if (profile?.user?.username == null) navigate("/");
   };
 
+   // Function to fetch profile data for each platform
   const fetchProfileData = async () => {
     await getSearchedPlatforms(dispatch, profile?.user?.codingPlatforms);
     await getSearchedHeatmaps(dispatch, profile?.user?.codingPlatforms);
   };
 
+   // Effect to fetch profile data when component mounts or username changes
   useEffect(() => {
     if (currentUser && currentUser === pathname)
       navigate(`/profile/${pathname}`);
     fetchProfile(pathname);
   }, [pathname]);
 
+  // Effect to fetch platform and heatmap data when profile data is available
   useEffect(() => {
     console.log(profile?.user?.codingPlatforms);
     if (profile?.user?.username) {
@@ -104,6 +112,7 @@ const UserInfo = () => {
     }
   }, [profile?.user?.codingPlatforms]);
 
+  // Function to get platform logo based on platform name
   const getLogo = (name) => {
     if (name == "gfg") return gfgLogo;
     if (name == "leetcode") return leetcodeLogo;
