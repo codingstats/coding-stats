@@ -10,6 +10,8 @@ import { login } from "../redux/apiCalls/apiCalls";
 import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
 
+
+// Styling for the login form
 const Form = styled.form`
   //height: 80%;
   //width: max-content;
@@ -58,6 +60,7 @@ const Form = styled.form`
     font-size: 1.2rem;
   }
 `;
+// Styling for the input fields
 const Input = styled.input`
   width: 100%;
   padding: 15px 30px;
@@ -76,6 +79,7 @@ const Input = styled.input`
     background-color: transparent;
   }
 `;
+// Styling for the submit button
 const Button = styled.button`
   padding: 14px 0px;
   border: 1px solid ${(props) => props.theme.accent};
@@ -115,11 +119,13 @@ const F2C = styled.div`
   }
 `;
 
+// Styling for flex container
 const DF = styled.div`
   display: flex;
   justify-content: center;
 `;
 
+// Login component definition
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -129,10 +135,12 @@ const Login = () => {
   const isFetching = useSelector((state) => state?.user?.isFetching);
   const [userData, setUserData] = useState({});
 
+  // Function to handle changes in input fields
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(clearProfile());
