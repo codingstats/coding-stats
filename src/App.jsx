@@ -41,10 +41,12 @@ const Body = styled.div`
 `;
 
 function App() {
+  // Redux hooks for dispatch and selecting user state
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const themeDark = useSelector((state) => state?.user?.dark);
 
+   // Setting authorization header for user request
   userRequest.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${currentUser?.token}`;
@@ -53,6 +55,7 @@ function App() {
     dispatch(changeUserTheme(val));
   };
 
+    // Creating browser router instance with defined routes
   const router = createBrowserRouter([
     {
       path: "/",

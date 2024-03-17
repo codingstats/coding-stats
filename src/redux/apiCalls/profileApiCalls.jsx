@@ -9,6 +9,7 @@ import {
 import { publicRequest, userRequest } from "../../requestMethods";
 import { toast } from "react-toastify";
 
+// Function to fetch user profile
 export const getProfile = async (dispatch, user) => {
   dispatch(profileStart());
   toast("Fetching Profile!");
@@ -25,6 +26,7 @@ export const getProfile = async (dispatch, user) => {
   }
 };
 
+// Function to add a coding platform to user's profile
 export const setPlatform = async (dispatch, platform, user) => {
   dispatch(profileStart());
   toast("Updating...");
@@ -37,7 +39,7 @@ export const setPlatform = async (dispatch, platform, user) => {
     toast(`${error.response.data.message}`);
   }
 };
-
+// Function to fetch details of user's coding platforms
 export const getPlatforms = async (dispatch, platforms) => {
   dispatch(profileStart());
   toast("Fetching User Details");
@@ -68,7 +70,7 @@ export const getPlatforms = async (dispatch, platforms) => {
     toast("Unable to fetch user details");
   }
 };
-
+// Function to fetch heatmaps of user's coding platforms
 export const getHeatmaps = async (dispatch, platforms) => {
   dispatch(profileStart());
   try {
@@ -95,6 +97,7 @@ export const getHeatmaps = async (dispatch, platforms) => {
       }
     });
   } catch (error) {
+    // Displaying toast notification for unable to fetch user details
     toast("Unable to fetch user details");
     dispatch(profileFailure());
   }
