@@ -2,11 +2,11 @@ export const lightTheme = {
   dark: false,
   body: "white",
   text: "#16161d",
-  accent: "#ba43ff",
+  accent: "#c469f8",
   fontFamily: "'Source Sans Pro', sans-serif",
   bodyRgba: "231, 222, 204",
   textRgba: "22,22,29",
-  accentRgba: "127, 28, 207",
+  accentRgba: "196, 105, 248",
 
   backgroundColor: "rgb(207,177,225,0.5)",
   backgroundGradient:
@@ -18,11 +18,11 @@ export const darkTheme = {
   dark: true,
   body: "#16161d",
   text: "white",
-  accent: "#ba43ff",
+  accent: "#c469f8",
   fontFamily: "'Source Sans Pro', sans-serif",
   textRgba: "231, 222, 204",
   bodyRgba: "22,22,29",
-  accentRgba: "127, 28, 207",
+  accentRgba: "196, 105, 248",
 
   backgroundColor: "rgb(87,87,87)",
   backgroundGradient:

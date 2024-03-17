@@ -45,32 +45,46 @@ const Form = styled.form`
   }
 `;
 const Input = styled.input`
-  width: 100%;
-  padding: 20px 30px;
-  border-radius: 30px;
+  width: 600px;
+  padding: 15px 30px;
   font-size: 20px;
   margin: 15px;
-  background-color: #decdc3;
-  color: rgba(45, 64, 89, 1);
+  background-color: rgba(${(props) => props.theme.bodyRgba}, 0.1);
+  color: ${(props) => props.theme.accent};
   outline: none;
-
-  @media (max-width: 800px) {
-    padding: 10px 20px;
+  border: 1px solid ${(props) => props.theme.text};
+  border-radius: 5px;
+  font-size: 15px;
+  &:focus {
+    color: ${(props) => props.theme.text};
+    width: 620px;
+    border: 1px solid ${(props) => props.theme.accent};
+    background-color: transparent;
   }
 `;
 const Button = styled.button`
   margin: 20px;
-  padding: 20px 40px;
-  background-color: ${(props) => props.theme.accent};
-  border-radius: 40px;
-  font-size: 20px;
-  font-family: "Expletus Sans", sans-serif;
+  padding: 14px 0px;
+  border: 1px solid ${(props) => props.theme.accent};
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  font-size: small;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  cursor: pointer;
+  color: ${(props) => props.theme.text};
+  background-color: transparent;
+
   &:hover {
-    cursor: pointer;
+    letter-spacing: 1.2px;
+    color: ${(props) => props.theme.accent};
+    border: 1px solid ${(props) => props.theme.text};
   }
 
-  @media (max-width: 430px) {
-    padding: 10px 40px;
+  @media screen and (max-width: 1000px) {
+    margin: 0;
   }
 `;
 

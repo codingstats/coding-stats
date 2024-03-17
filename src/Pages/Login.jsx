@@ -23,13 +23,8 @@ const Form = styled.form`
     color: ${(props) => props.theme.accent};
     margin-bottom: 40px;
   }
-
   span {
-    margin: 10px;
-  }
-
-  .error {
-    color: red;
+    margin: 10px 0;
   }
 
   a {
@@ -51,10 +46,6 @@ const Form = styled.form`
   }
   @media (max-width: 450px) {
     transform: scale(0.6);
-    span {
-      font-size: 30px;
-      width: max-content;
-    }
   }
   @media (max-width: 380px) {
     transform: scale(0.5);
@@ -69,48 +60,44 @@ const Form = styled.form`
 `;
 const Input = styled.input`
   width: 100%;
-  //padding: 20px 30px;
-  //border-radius: 30px;
-  //font-size: 20px;
-  margin: 10px 0 25px;
-  //background-color: #decdc3;
-  color: rgba(45, 64, 89, 1);
+  padding: 15px 30px;
+  font-size: 20px;
+  margin: 15px 0;
+  background-color: rgba(${(props) => props.theme.bodyRgba}, 0.1);
+  color: ${(props) => props.theme.accent};
   outline: none;
-
-  //width: 400px;
-  padding: 10px 30px;
-  border: solid 2px ${(props) => props.theme.text};
-  border-radius: 3px;
-  //margin-bottom: 20px;
-  //background: none;
-  color: black;
-  //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
-  font-size: 1.2rem;
-
-  @media (max-width: 380px) {
-    font-size: 30px;
+  border: 1px solid ${(props) => props.theme.text};
+  border-radius: 5px;
+  font-size: 15px;
+  &:focus {
+    color: ${(props) => props.theme.text};
+    width: calc(100% + 10px);
+    border: 1px solid ${(props) => props.theme.accent};
+    background-color: transparent;
   }
 `;
 const Button = styled.button`
-  outline: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  background: ${(props) => props.theme.accent};
-  border: none;
-  //color: ${(props) => props.theme.text};
-  color: white;
-  font-size: 1rem;
-  margin: 15px 0;
-
-  @media (max-width: 730px) {
+  padding: 14px 0px;
+  border: 1px solid ${(props) => props.theme.accent};
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  font-size: small;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  cursor: pointer;
+  color: ${(props) => props.theme.text};
+  background-color: transparent;
+  margin: 10px 0;
+  &:hover {
+    letter-spacing: 1.2px;
+    color: ${(props) => props.theme.accent};
+    border: 1px solid ${(props) => props.theme.text};
   }
 
-  @media (max-width: 660px) {
-    width: 600px;
-  }
-
-  @media (max-width: 380px) {
-    font-size: 25px;
+  @media screen and (max-width: 1000px) {
+    margin: 0;
   }
 `;
 

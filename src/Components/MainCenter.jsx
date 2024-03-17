@@ -26,9 +26,8 @@ const Container = styled.div`
   border-radius: 30px;
 
   button {
-    margin: 20px;
     padding: 14px 0px;
-    border: 1px solid #ea5455;
+    border: 1px solid ${(props) => props.theme.accent};
     border-radius: 5px;
     width: 200px;
     text-align: center;
@@ -36,13 +35,18 @@ const Container = styled.div`
     font-size: small;
     transition: all 0.25s ease;
     overflow: hidden;
-    color: white;
+    cursor: pointer;
+    color: ${(props) => props.theme.text};
     background-color: transparent;
 
     &:hover {
       letter-spacing: 1.2px;
-      color: #ea5455;
-      border: 1px solid #decdc3;
+      color: ${(props) => props.theme.accent};
+      border: 1px solid ${(props) => props.theme.text};
+    }
+
+    @media screen and (max-width: 1000px) {
+      margin: 0;
     }
   }
 `;

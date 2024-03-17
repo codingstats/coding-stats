@@ -45,25 +45,32 @@ const FormContainer = styled.div`
 `;
 
 const Button = styled.button`
-  outline: none;
-  padding: 10px 20px;
+  margin: 20px;
+  padding: 14px 0px;
+  border: 1px solid ${(props) => props.theme.accent};
   border-radius: 5px;
-  background: ${(props) => props.theme.accent};
-  border: none;
-  //color: ${(props) => props.theme.text};
-  color: white;
-  font-size: 1rem;
-  margin: 10px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  font-size: small;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  cursor: pointer;
+  color: ${(props) => props.theme.text};
+  background-color: transparent;
 
-  @media (max-width: 730px) {
+  &:hover {
+    letter-spacing: 1.2px;
+    color: ${(props) => props.theme.accent};
+    border: 1px solid ${(props) => props.theme.text};
   }
 
-  @media (max-width: 660px) {
-    width: 600px;
+  @media screen and (max-width: 730px) {
+    width: 100%;
   }
 
-  @media (max-width: 380px) {
-    font-size: 25px;
+  &.final {
+    width: 200px;
   }
 `;
 
@@ -77,30 +84,39 @@ const Label = styled.label`
   padding: 20px;
   border-radius: 5px;
   margin: 10px;
-
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+  }
   img {
     height: 80px;
     margin-right: 50px;
   }
+  @media screen and (max-width: 730px) {
+    flex-direction: column;
+  }
 `;
 
 const Input = styled.input`
-  width: 400px;
-  padding: 8px 30px;
-  border: solid 2px ${(props) => props.theme.text};
-  border-radius: 3px;
-  //background: none;
-  color: black;
-  //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
-  font-size: 1.2rem;
-
-  &::placeholder {
-    color: #5f5f5f;
-    font-size: 1rem;
+  width: 400;
+  padding: 15px 30px;
+  font-size: 20px;
+  margin: 15px;
+  background-color: rgba(${(props) => props.theme.bodyRgba}, 0.1);
+  color: ${(props) => props.theme.accent};
+  outline: none;
+  border: 1px solid ${(props) => props.theme.text};
+  border-radius: 5px;
+  font-size: 15px;
+  &:focus {
+    color: ${(props) => props.theme.text};
+    border: 1px solid ${(props) => props.theme.accent};
+    background-color: transparent;
   }
-
-  @media (max-width: 380px) {
-    font-size: 30px;
+  @media screen and (max-width: 730px) {
+    margin: 0px;
   }
 `;
 
@@ -134,18 +150,20 @@ const UpdatePlatforms = () => {
         <h1>Select Platforms</h1>
         <FormContainer action="" className="login">
           <Label>
-            <img src={gfgLogo} alt="" />
-            <Input
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              type="text"
-              required
-              name="GFG"
-              placeholder={
-                getPlaceholder("GFG")
-                  ? `${getPlaceholder("GFG")}`
-                  : "Enter your GFG Username"
-              }
-            />
+            <span>
+              <img src={gfgLogo} alt="" />
+              <Input
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                type="text"
+                required
+                name="GFG"
+                placeholder={
+                  getPlaceholder("GFG")
+                    ? `${getPlaceholder("GFG")}`
+                    : "Enter your GFG Username"
+                }
+              />
+            </span>
             <Button
               onClick={() => {
                 setPlatform(
@@ -163,18 +181,20 @@ const UpdatePlatforms = () => {
           </Label>
 
           <Label>
-            <img src={leetcodeLogo} alt="" />
-            <Input
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              type="text"
-              required
-              name="LEETCODE"
-              placeholder={
-                getPlaceholder("LEETCODE")
-                  ? `${getPlaceholder("LEETCODE")}`
-                  : "Enter your LEETCODE Username"
-              }
-            />
+            <span>
+              <img src={leetcodeLogo} alt="" />
+              <Input
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                type="text"
+                required
+                name="LEETCODE"
+                placeholder={
+                  getPlaceholder("LEETCODE")
+                    ? `${getPlaceholder("LEETCODE")}`
+                    : "Enter your LEETCODE Username"
+                }
+              />
+            </span>
             <Button
               onClick={() => {
                 setPlatform(
@@ -192,18 +212,20 @@ const UpdatePlatforms = () => {
           </Label>
 
           <Label>
-            <img src={codeforcesLogo} alt="" />
-            <Input
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              type="text"
-              required
-              name="CODEFORCES"
-              placeholder={
-                getPlaceholder("CODEFORCES")
-                  ? `${getPlaceholder("CODEFORCES")}`
-                  : "Enter your CODEFORCES Username"
-              }
-            />
+            <span>
+              <img src={codeforcesLogo} alt="" />
+              <Input
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
+                type="text"
+                required
+                name="CODEFORCES"
+                placeholder={
+                  getPlaceholder("CODEFORCES")
+                    ? `${getPlaceholder("CODEFORCES")}`
+                    : "Enter your CODEFORCES Username"
+                }
+              />
+            </span>
             <Button
               onClick={() => {
                 setPlatform(
@@ -219,7 +241,9 @@ const UpdatePlatforms = () => {
               Submit
             </Button>
           </Label>
-          <Button onClick={() => handleNext()}>Go to Profile</Button>
+          <Button className="final" onClick={() => handleNext()}>
+            Go to Profile
+          </Button>
         </FormContainer>
       </Main>
     </>
