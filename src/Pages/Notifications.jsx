@@ -66,7 +66,6 @@ const Notifications = () => {
 
   // useEffect hook to ensure user is logged in and fetch notifications on component mount
   useEffect(() => {
-    if (!currentUser) navigate("/login");
     apiCall();
   }, []);
   // useEffect hook to log platforms whenever platforms state changes
