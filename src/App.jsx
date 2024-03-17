@@ -18,10 +18,12 @@ import CodingPlatforms from "./Pages/CodingPlatforms";
 import UserInfo from "./Pages/UserInfo";
 import DeleteAccount from "./Pages/ProfilePages/DeleteAccount";
 import ChangePassword from "./Pages/ProfilePages/ChangePassword";
+import ResetPassword from "./Pages/ProfilePages/ResetPassword";
+import ResetPasswordNew from "./Pages/ProfilePages/ResetPasswordNew";
 
 const Body = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
-  
+
   // background: ${(props) => props.theme.text};
   //min-height: 100vh;
   width: 100vw;
@@ -82,6 +84,18 @@ function App() {
     {
       path: "/login",
       element: <Login themeDark={themeDark} setThemeDark={setThemeDark} />,
+    },
+    {
+      path: "/resetpassword",
+      element: (
+        <ResetPassword themeDark={themeDark} setThemeDark={setThemeDark} />
+      ),
+    },
+    {
+      path: "/resetpassword/:id",
+      element: (
+        <ResetPasswordNew themeDark={themeDark} setThemeDark={setThemeDark} />
+      ),
     },
     {
       path: "/select-platforms",

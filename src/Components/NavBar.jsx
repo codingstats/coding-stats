@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import profile from "../assets/image.svg";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faBell, faCloudMoon, faCloudSun,
+  faBell,
+  faCloudMoon,
+  faCloudSun,
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/logo.png";
 import logoLight from "../assets/logo-light.png";
@@ -21,17 +23,14 @@ const Container = styled.div`
   align-items: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  
+
   > div {
     width: 100%;
     max-width: 1400px;
     display: flex;
     justify-content: space-between;
   }
-
 `;
 
 const Navs = styled.div`
@@ -39,7 +38,7 @@ const Navs = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  
+
   img {
     height: 50px;
     transition: all 0.25s ease-in-out;
@@ -68,7 +67,7 @@ const Theme = styled.div`
   //justify-content: center;
   //align-items: center;
   transition: all 0.25s ease-in-out;
-  color:  ${(props) => props.theme.text};
+  color: ${(props) => props.theme.text};
 
   &:active {
     transform: rotate(${(props) => (props.theme.dark ? "-20deg" : "20deg")});
@@ -95,11 +94,10 @@ const Profile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   border: 2px solid black;
   padding: 5px;
   box-sizing: border-box;
-
 
   img {
     height: 100%;
@@ -114,36 +112,36 @@ const Profile = styled.div`
   }
 `;
 
-const NavBar = ({themeDark, setThemeDark}) => {
-    return (<Container>
-        <div>
-            <Navs>
-                <Link to={"/"}>
-                    <img src={themeDark ? logo : logoLight} alt="Coding Stats"/>
-                </Link>
-            </Navs>
+const NavBar = ({ themeDark, setThemeDark }) => {
+  return (
+    <Container>
+      <div>
+        <Navs>
+          <Link to={"/"}>
+            <img src={themeDark ? logo : logoLight} alt="Coding Stats" />
+          </Link>
+        </Navs>
 
-            <Buttons>
+        <Buttons>
+          <Theme onClick={() => setThemeDark((p) => !p)}>
+            <FontAwesomeIcon icon={themeDark ? faCloudMoon : faCloudSun} />
+          </Theme>
 
-                <Theme onClick={() => setThemeDark((p) => !p)}>
-                    <FontAwesomeIcon icon={themeDark ? faCloudMoon : faCloudSun}/>
-                </Theme>
+          <Link to={"/notifications"}>
+            <Theme>
+              <FontAwesomeIcon icon={faBell} />
+            </Theme>
+          </Link>
 
-                <Link to={"/notifications"}>
-                    <Theme>
-                        <FontAwesomeIcon icon={faBell}/>
-                    </Theme>
-                </Link>
-
-                <Profile>
-                    <Link to={"/profile"} style={{display: "flex"}}>
-                        <img src={profile} alt="profile"/>
-                    </Link>
-                </Profile>
-
-            </Buttons>
-        </div>
-    </Container>);
+          <Profile>
+            <Link to={"/profile"} style={{ display: "flex" }}>
+              <img src={profile} alt="profile" />
+            </Link>
+          </Profile>
+        </Buttons>
+      </div>
+    </Container>
+  );
 };
 
 export default NavBar;

@@ -43,7 +43,7 @@ export const updateUser = async (dispatch, userData) => {
 export const updatePassword = async (dispatch, passwords) => {
   dispatch(userStart());
   try {
-    const res = await userRequest.patch("/users/updateMyPassword", {
+    const res = await userRequest.patch("/user/updateMyPassword", {
       ...passwords,
     });
     dispatch(updateSuccess(res.data));
@@ -56,7 +56,7 @@ export const updatePassword = async (dispatch, passwords) => {
 export const deleteUser = async (dispatch, password) => {
   dispatch(userStart());
   try {
-    const res = await userRequest.post("/users/deleteMe", {
+    const res = await userRequest.post("/user/deleteMe", {
       password: password,
     });
     confirm("Your account has been deleted");

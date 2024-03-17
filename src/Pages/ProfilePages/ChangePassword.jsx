@@ -92,9 +92,15 @@ const ChangePassword = ({ themeDark, setThemeDark }) => {
         newPassword: password,
         passwordConfirm: confirmPassword,
       });
-      navigate("/user");
-      dispatch(logOut());
-      dispatch(clearProfile());
+      console.log("first", error);
+      if (!error) {
+        navigate("/profile");
+        dispatch(logOut());
+        dispatch(clearProfile());
+      }
+      if (error) {
+        alert(errorMsg);
+      }
     } else {
       setOldPassword("");
     }

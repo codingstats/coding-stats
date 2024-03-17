@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background: ${(props) => props.theme.backgroundGradient};
-  //height: calc(100vh - 80px);
-  //width: calc(100vw - 80px);
+  height: calc(100vh - 80px);
+  /* //width: calc(100vw - 80px); */
   width: 100%;
   max-width: 1400px;
   color: ${(props) => props.theme.text};
