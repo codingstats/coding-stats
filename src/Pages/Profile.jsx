@@ -197,7 +197,7 @@ const Profile = () => {
       if (currentUser !== null) {
         fetchProfile(currentUser?.data?.user?.username);
       }
-    } else navigate(`/user/${pathname}`);
+    } else navigate(`/user/${currentUser?.data?.user?.username}`);
   }, [currentUser]);
 
   useEffect(() => {
@@ -205,6 +205,7 @@ const Profile = () => {
   }, [profile?.user?.codingPlatforms]);
 
   const handleLogout = () => {
+    navigate("/login");
     dispatch(logOut());
     dispatch(clearProfile());
   };

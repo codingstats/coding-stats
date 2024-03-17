@@ -27,6 +27,7 @@ export const getProfile = async (dispatch, user) => {
 
 export const setPlatform = async (dispatch, platform, user) => {
   dispatch(profileStart());
+  toast("Updating...");
   try {
     const res = await userRequest.post("/user/addCodingPlatform", platform);
     await dispatch(platformSetSuccess());

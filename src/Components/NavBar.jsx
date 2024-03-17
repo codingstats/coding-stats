@@ -141,7 +141,10 @@ const NavBar = () => {
           </Link>
 
           <Profile>
-            <Link to={`/profile/${currentUser}`} style={{ display: "flex" }}>
+            <Link
+              to={currentUser ? `/profile/${currentUser}` : "/login"}
+              style={{ display: "flex" }}
+            >
               <img src={profile} alt="profile" />
             </Link>
           </Profile>

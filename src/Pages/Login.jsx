@@ -8,6 +8,8 @@ import { clearProfile } from "../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiCalls/apiCalls";
 import { getPlatforms, getProfile } from "../redux/apiCalls/profileApiCalls";
+import MainCenter from "../Components/MainCenter";
+import Loader from "../Components/Loader";
 
 const Form = styled.form`
   //height: 80%;
@@ -136,7 +138,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state?.user?.currentUser?.data);
-
+  const isFetching = useSelector((state) => state?.user?.isFetching);
   const [userData, setUserData] = useState({});
 
   const handleChange = (e) => {
@@ -150,45 +152,52 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (currentUser) navigate("/profile");
+    if (currentUser) navigate(`/profile/${currentUser}`);
   }, [currentUser]);
 
   return (
     <>
       <NavBar />
-      <Main>
-        <DF>
-          <F2C>
-            <div>Some Content</div>
-            <Form className="login" onSubmit={(e) => handleSubmit(e)}>
-              <h1>Login</h1>
-              <label>Username</label>
-              <Input
-                onChange={(e) => handleChange(e)}
-                type="text"
-                required
-                name="username"
-                // placeholder="Username"
-              />
-              <label>Password</label>
-              <Input
-                onChange={(e) => handleChange(e)}
-                type="password"
-                required
-                name="password"
-                // placeholder="Password"
-              />
-              <Button type="submit">Login</Button>
-              <span>
-                <Link to={"/resetpassword"}>Forgot Password?</Link>
-              </span>
-              <span>
-                <Link to={"/register"}>Create a new Account</Link>
-              </span>
-            </Form>
-          </F2C>
-        </DF>
-      </Main>
+      {isFetching && (
+        <MainCenter>
+          <Loader />
+        </MainCenter>
+      )}
+      {!isFetching && (
+        <Main>
+          <DF>
+            <F2C>
+              <div>Some Content</div>
+              <Form className="login" onSubmit={(e) => handleSubmit(e)}>
+                <h1>Login</h1>
+                <label>Username</label>
+                <Input
+                  onChange={(e) => handleChange(e)}
+                  type="text"
+                  required
+                  name="username"
+                  // placeholder="Username"
+                />
+                <label>Password</label>
+                <Input
+                  onChange={(e) => handleChange(e)}
+                  type="password"
+                  required
+                  name="password"
+                  // placeholder="Password"
+                />
+                <Button type="submit">Login</Button>
+                <span>
+                  <Link to={"/resetpassword"}>Forgot Password?</Link>
+                </span>
+                <span>
+                  <Link to={"/register"}>Create a new Account</Link>
+                </span>
+              </Form>
+            </F2C>
+          </DF>
+        </Main>
+      )}
     </>
   );
 };
