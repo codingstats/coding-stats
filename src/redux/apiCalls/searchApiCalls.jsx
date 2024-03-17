@@ -20,10 +20,12 @@ export const getSearchedProfile = async (dispatch, user) => {
         user: res.data.data.user,
       })
     );
+    return res;
   } catch (error) {
     toast("User not Found!");
     dispatch(searchFailure());
     dispatch(clearsearch());
+    return error;
   }
 };
 
