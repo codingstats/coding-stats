@@ -69,7 +69,7 @@ const Individuals = styled.div`
   }
 `;
 
-const UserInfo = ({ themeDark, setThemeDark }) => {
+const UserInfo = () => {
   const pathname = useLocation().pathname.split("/")[2];
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
 
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       {isFetching && (
         <MainCenter>
           <Loader />

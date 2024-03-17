@@ -90,6 +90,7 @@ const Info = styled.div`
       font-size: small;
       transition: all 0.25s ease;
       overflow: hidden;
+      cursor: pointer;
       color: ${(props) => props.theme.text};
 
       &:hover {
@@ -131,7 +132,7 @@ const Cumulative = styled.div`
   width: 100%;
   height: max-content;
 `;
-const Profile = ({ themeDark, setThemeDark }) => {
+const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.user?.currentUser);
@@ -169,7 +170,7 @@ const Profile = ({ themeDark, setThemeDark }) => {
   console.log(profile?.platforms);
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       {isFetching && (
         <MainCenter>
           <Loader />

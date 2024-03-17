@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Main from "../Components/Main";
 import NavBar from "../Components/NavBar";
-import {useNavigate} from "react-router";
-import searchingPerson from "../assets/searching.jpg"
+import { useNavigate } from "react-router";
+import searchingPerson from "../assets/searching.jpg";
 
 const About = styled.div`
   //background-color: red;
@@ -11,15 +11,15 @@ const About = styled.div`
 
   h1 {
     //font-size: 100px;
-      //color: ${(props) => props.theme.accent};
+    //color: ${(props) => props.theme.accent};
     //margin-bottom: 40px;
-      //filter: drop-shadow(4px 4px 4px rgba(${(props) => props.theme.textRgba}, 0.4));
+    //filter: drop-shadow(4px 4px 4px rgba(${(props) =>
+      props.theme.textRgba}, 0.4));
   }
 
   p {
     margin-bottom: 40px;
     color: ${(props) => props.theme.colorSecondary};
-
   }
 `;
 
@@ -33,7 +33,6 @@ const F2C = styled.div`
   img {
     width: 70%;
   }
-
 `;
 
 const DF = styled.div`
@@ -55,7 +54,7 @@ const Form = styled.form`
     margin-bottom: 20px;
     //background: none;
     color: black;
-      //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
+    //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
     font-size: 1.2rem;
   }
 
@@ -65,48 +64,48 @@ const Form = styled.form`
     border-radius: 20px;
     background: ${(props) => props.theme.accent};
     border: none;
-      //color: ${(props) => props.theme.text};
+    //color: ${(props) => props.theme.text};
     color: white;
     font-size: 1rem;
-      //filter: drop-shadow(1px 1px 4px ${(props) => props.theme.text});
+    //filter: drop-shadow(1px 1px 4px ${(props) => props.theme.text});
   }
 `;
 
-const Home = ({themeDark, setThemeDark}) => {
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const searchFunction = () => {
-        navigate(`/user/${username}`);
-    };
+const Home = () => {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const searchFunction = () => {
+    navigate(`/user/${username}`);
+  };
 
-    return (
-        <>
-            <NavBar themeDark={themeDark} setThemeDark={setThemeDark}/>
-            <Main>
-                <DF>
-                    <F2C>
-                        <div>
-                            <About>
-                                <h1>Search your friends!</h1>
-                                <p>Insert codestats username to go to their profile</p>
-                            </About>
-                            <Form onSubmit={searchFunction}>
-                                <input
-                                    placeholder="Username"
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    type="text"
-                                />
-                                <button type="submit">Search</button>
-                            </Form>
-                        </div>
-                        <div>
-                            <img src={searchingPerson} alt=""/>
-                        </div>
-                    </F2C>
-                </DF>
-            </Main>
-        </>
-    );
+  return (
+    <>
+      <NavBar />
+      <Main>
+        <DF>
+          <F2C>
+            <div>
+              <About>
+                <h1>Search your friends!</h1>
+                <p>Insert codestats username to go to their profile</p>
+              </About>
+              <Form onSubmit={searchFunction}>
+                <input
+                  placeholder="Username"
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                />
+                <button type="submit">Search</button>
+              </Form>
+            </div>
+            <div>
+              <img src={searchingPerson} alt="" />
+            </div>
+          </F2C>
+        </DF>
+      </Main>
+    </>
+  );
 };
 
 export default Home;

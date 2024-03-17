@@ -50,7 +50,7 @@ const Button = styled.button`
   font-family: "Expletus Sans", sans-serif;
 `;
 
-const Register = ({ themeDark, setThemeDark }) => {
+const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state?.user?.currentUser);
@@ -76,7 +76,7 @@ const Register = ({ themeDark, setThemeDark }) => {
 
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       <Main>
         <Form onSubmit={(e) => handleSubmit(e)} className="register">
           <h1>Create an Account</h1>

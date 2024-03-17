@@ -72,7 +72,7 @@ const Button = styled.button`
   }
 `;
 
-const DeleteAccount = ({ themeDark, setThemeDark }) => {
+const DeleteAccount = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const DeleteAccount = ({ themeDark, setThemeDark }) => {
   };
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       <Main>
         <Form action="" onSubmit={(e) => handleSubmit(e)}>
           <h1>Delete Account</h1>

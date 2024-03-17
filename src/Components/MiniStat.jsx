@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import {Chart as ChartJS, ArcElement, Tooltip, Legend} from "chart.js";
-import {Doughnut} from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 import Heatmap from "./Heatmap";
 
 const Container = styled.div`
-  background-color: rgba(${(props) => props.theme.textRgba},
-  ${(props) => (props.theme.dark ? 0.1 : 0.04)});
+  background-color: rgba(
+    ${(props) => props.theme.textRgba},
+    ${(props) => (props.theme.dark ? 0.1 : 0.04)}
+  );
   //height: 500px;
   width: 90%;
   margin: 0px auto;
@@ -27,14 +29,14 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  .first{
+  .first {
     display: flex;
     background: ${(props) => props.theme.backgroundGradient};
     padding: 10px;
     height: 100%;
     border-radius: 5px;
   }
-  
+
   .img {
     height: 120px;
     margin-right: 40px;
@@ -56,9 +58,8 @@ const Top = styled.div`
     //width: calc(100% - 160 - 40%);
 
     p {
-      margin: 0
+      margin: 0;
     }
-
   }
 `;
 
@@ -105,23 +106,23 @@ const Text = styled.div`
   //font-weight: 600;
 
   .school {
-    color: #0758B2;
+    color: #0758b2;
   }
 
   .basic {
-    color: #2775CC;
+    color: #2775cc;
   }
 
   .easy {
-    color: #FF2917;
+    color: #ff2917;
   }
 
   .medium {
-    color: #E2FF30;
+    color: #e2ff30;
   }
 
   .hard {
-    color: #B22D22;
+    color: #b22d22;
   }
 `;
 
@@ -139,68 +140,84 @@ const HeatMap = styled.div`
   }
 `;
 
-const MiniStat = ({platform, heatmap, siteLogo}) => {
-    ChartJS.register(ArcElement, Tooltip, Legend);
-    const data = {
-        labels: [], datasets: [{
-            label: ["Solved"],
-            data: platform?.submissionCount?.map((sub) => {
-                if (platform?.submissionCount?.length == 1) return sub.count; else {
-                    if (sub.difficulty !== "All") return sub.count;
-                }
-            }),
-            backgroundColor: ["black", "green", "teal", "orange", "red"],
-            borderColor: ["black", "green", "teal", "orange", "red"],
-        },],
-    };
+const MiniStat = ({ platform, heatmap, siteLogo }) => {
+  ChartJS.register(ArcElement, Tooltip, Legend);
+  const data = {
+    labels: [],
+    datasets: [
+      {
+        label: ["Solved"],
+        data: platform?.submissionCount?.map((sub) => {
+          if (platform?.submissionCount?.length == 1) return sub.count;
+          else {
+            if (sub.difficulty !== "All") return sub.count;
+          }
+        }),
+        backgroundColor: ["black", "green", "teal", "orange", "red"],
+        borderColor: ["black", "green", "teal", "orange", "red"],
+      },
+    ],
+  };
 
-    const options = {};
+  const options = {};
 
-    return (<Container>
-        <Top>
-            <div className="first">
-                <div className="img">
-                    <img src={siteLogo} alt="logo" className="site"/>
-                    <a target="_blank" href={platform?.profileLink}>
-                        Go to site
-                    </a>
-                </div>
+  return (
+    <Container>
+      <Top>
+        <div className="first">
+          <div className="img">
+            <img src={siteLogo} alt="logo" className="site" />
+            <a target="_blank" href={platform?.profileLink}>
+              Go to site
+            </a>
+          </div>
 
-                <div className="mid">
-                    <h2>{platform?.handler}</h2>
-                    <p>
-                        <span className="heading">Platform: </span>
-                        {platform?.platformName}
-                    </p>
-                    <p>
-                        <span className="heading">Rank: </span>
-                        {platform?.rank}
-                    </p>
-                    <p>
-                        <span className="heading">Streak: </span>
-                        {platform?.streak}
-                    </p>
-                </div>
-            </div>
+          <div className="mid">
+            <h2>{platform?.handler}</h2>
+            <p>
+              <span className="heading">Platform: </span>
+              {platform?.platformName}
+            </p>
+            <p>
+              <span className="heading">
+                {platform?.platformName === "CODEFORCES"
+                  ? "Rating: "
+                  : "Rank: "}
+              </span>
+              {platform?.rank}
+            </p>
+            <p>
+              <span className="heading">Streak: </span>
+              {platform?.streak}
+            </p>
+          </div>
+        </div>
 
-            <Text>
-                <div>
-                    <Doughnut data={data} options={options} style={{width: "125px"}}/>
-                </div>
-                <div className="right">
-                    {platform?.submissionCount?.map((sub) => (<span
-                        key={sub.difficulty}
-                        className={sub?.difficulty?.toLowerCase()}
-                    >
+        <Text>
+          <div>
+            <Doughnut
+              data={data}
+              options={options}
+              style={{ width: "125px" }}
+            />
+          </div>
+          <div className="right">
+            {platform?.submissionCount?.map((sub) => (
+              <span
+                key={sub.difficulty}
+                className={sub?.difficulty?.toLowerCase()}
+              >
                 {`${sub.difficulty}: ${sub.count}`}
-              </span>))}
-                </div>
-            </Text>
-        </Top>
-        <HeatMap>
-            {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={2024}/>}
-        </HeatMap>
-    </Container>);
+              </span>
+            ))}
+          </div>
+        </Text>
+      </Top>
+      <HeatMap>
+        {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={2024} />}
+      </HeatMap>
+    </Container>
+  );
 };
 
 export default MiniStat;

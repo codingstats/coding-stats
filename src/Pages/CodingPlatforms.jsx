@@ -96,6 +96,7 @@ const Input = styled.input`
 
   &::placeholder {
     color: #5f5f5f;
+    font-size: 1rem;
   }
 
   @media (max-width: 380px) {
@@ -103,7 +104,7 @@ const Input = styled.input`
   }
 `;
 
-const CodingPlatforms = ({ themeDark, setThemeDark }) => {
+const CodingPlatforms = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(
@@ -113,43 +114,36 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
 
   const [platformData, setPlatformData] = useState({});
 
-  const handleChange = (e) => {
-    setPlatformData({ ...platformData, [e.target.name]: e.target.value });
+  const handleChange = (name, value) => {
+    setPlatformData({ ...platformData, [name]: value });
   };
 
   const handleNext = () => {
     navigate("/profile");
   };
-  useEffect(() => {
-    platformList.forEach((platform) => {
-      console.log(platform);
-      setPlatformData({
-        ...platformData,
-        [platform.platformName]: platform.handler,
-      });
-    });
-  }, [platformList]);
-  useEffect(() => {
-    console.log("first", platformData);
-  }, [platformList]);
+
+  const getPlaceholder = (name) => {
+    return platformList.filter((platfrom) => platfrom.platformName === name)[0]
+      ?.handler;
+  };
 
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       <Main>
         <h1>Select Platforms</h1>
         <FormContainer action="" className="login">
           <Label>
             <img src={gfgLogo} alt="" />
             <Input
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
               type="text"
               required
               name="GFG"
               placeholder={
-                platformData.gfg === ""
-                  ? "Enter your GFG Username"
-                  : platformData.gfg
+                getPlaceholder("GFG")
+                  ? `${getPlaceholder("GFG")}`
+                  : "Enter your GFG Username"
               }
             />
             <Button
@@ -171,11 +165,15 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
           <Label>
             <img src={leetcodeLogo} alt="" />
             <Input
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
               type="text"
               required
               name="LEETCODE"
-              placeholder="Enter your Leetcode Username"
+              placeholder={
+                getPlaceholder("LEETCODE")
+                  ? `${getPlaceholder("LEETCODE")}`
+                  : "Enter your LEETCODE Username"
+              }
             />
             <Button
               onClick={() => {
@@ -196,11 +194,15 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
           <Label>
             <img src={codeforcesLogo} alt="" />
             <Input
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
               type="text"
               required
               name="CODEFORCES"
-              placeholder="Enter your Codeforces Username"
+              placeholder={
+                getPlaceholder("CODEFORCES")
+                  ? `${getPlaceholder("CODEFORCES")}`
+                  : "Enter your CODEFORCES Username"
+              }
             />
             <Button
               onClick={() => {

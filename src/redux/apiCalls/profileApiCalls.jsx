@@ -28,11 +28,12 @@ export const getProfile = async (dispatch, user) => {
 export const setPlatform = async (dispatch, platform, user) => {
   dispatch(profileStart());
   try {
-    await userRequest.post("/user/addCodingPlatform", platform);
+    const res = await userRequest.post("/user/addCodingPlatform", platform);
     await dispatch(platformSetSuccess());
-    await getProfile(dispatch, user);
+    toast(`${res.data.message}`);
   } catch (error) {
     dispatch(profileFailure());
+    toast(`${error.response.data.message}`);
   }
 };
 

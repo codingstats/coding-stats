@@ -12,7 +12,7 @@ import { darkTheme, lightTheme } from "./Components/Themes";
 import { useState } from "react";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRequest } from "./requestMethods";
 import CodingPlatforms from "./Pages/CodingPlatforms";
 import UserInfo from "./Pages/UserInfo";
@@ -20,6 +20,9 @@ import DeleteAccount from "./Pages/ProfilePages/DeleteAccount";
 import ChangePassword from "./Pages/ProfilePages/ChangePassword";
 import ResetPassword from "./Pages/ProfilePages/ResetPassword";
 import ResetPasswordNew from "./Pages/ProfilePages/ResetPasswordNew";
+import { Flip, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { changeUserTheme } from "./redux/userSlice";
 
 const Body = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
@@ -38,74 +41,66 @@ const Body = styled.div`
 `;
 
 function App() {
-  const [themeDark, setThemeDark] = useState(true);
-
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state?.user?.currentUser);
+  const themeDark = useSelector((state) => state?.user?.dark);
 
   userRequest.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${currentUser?.token}`;
 
+  const changeTheme = (val) => {
+    dispatch(changeUserTheme(val));
+  };
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <Home />,
     },
     {
       path: "/profile",
-      element: <Profile themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <Profile />,
     },
     {
       path: "/profile/changepassword",
-      element: (
-        <ChangePassword themeDark={themeDark} setThemeDark={setThemeDark} />
-      ),
+      element: <ChangePassword />,
     },
     {
       path: "/profile/deleteaccount",
-      element: (
-        <DeleteAccount themeDark={themeDark} setThemeDark={setThemeDark} />
-      ),
+      element: <DeleteAccount />,
     },
     {
       path: "/user/:id",
-      element: <UserInfo themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <UserInfo />,
     },
     {
       path: "/notifications",
-      element: (
-        <Notifications themeDark={themeDark} setThemeDark={setThemeDark} />
-      ),
+      element: <Notifications />,
     },
     {
       path: "/settings",
-      element: <Settings themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <Settings />,
     },
     {
       path: "/login",
-      element: <Login themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <Login />,
     },
     {
       path: "/resetpassword",
-      element: (
-        <ResetPassword themeDark={themeDark} setThemeDark={setThemeDark} />
-      ),
+      element: <ResetPassword />,
     },
     {
       path: "/resetpassword/:id",
-      element: (
-        <ResetPasswordNew themeDark={themeDark} setThemeDark={setThemeDark} />
-      ),
+      element: <ResetPasswordNew />,
     },
     {
       path: "/select-platforms",
-      element: (
-        <CodingPlatforms themeDark={themeDark} setThemeDark={setThemeDark} />
-      ),
+      element: <CodingPlatforms />,
     },
     {
       path: "/register",
-      element: <Register themeDark={themeDark} setThemeDark={setThemeDark} />,
+      element: <Register />,
     },
   ]);
 
@@ -113,6 +108,14 @@ function App() {
     <>
       <GlobalStyle />
       <ThemeProvider theme={themeDark ? darkTheme : lightTheme}>
+        <ToastContainer
+          theme={themeDark ? "dark" : "light"}
+          position="bottom-right"
+          autoClose="1000"
+          closeOnClick="true"
+          transition={Flip}
+          draggable="true"
+        />
         <Body>
           <RouterProvider router={router} />
         </Body>

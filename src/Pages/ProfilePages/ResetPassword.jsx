@@ -74,7 +74,7 @@ const Button = styled.button`
   }
 `;
 
-const ResetPassword = ({ themeDark, setThemeDark }) => {
+const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState({ status: 1, message: "" });
   const url = window.location.href.split("/")[2];
@@ -98,7 +98,7 @@ const ResetPassword = ({ themeDark, setThemeDark }) => {
 
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       <Main>
         <Form action="" onSubmit={(e) => handleSubmit(e)} className="register">
           <h1>Reset Password</h1>

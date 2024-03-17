@@ -74,7 +74,7 @@ const Button = styled.button`
   }
 `;
 
-const ChangePassword = ({ themeDark, setThemeDark }) => {
+const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -108,7 +108,7 @@ const ChangePassword = ({ themeDark, setThemeDark }) => {
 
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       <Main>
         {isFetching && <Loader />}
         {!isFetching && (

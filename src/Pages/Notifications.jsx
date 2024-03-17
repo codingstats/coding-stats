@@ -34,7 +34,7 @@ const Platform = styled.div`
 
 const Notification = styled.div``;
 
-const Notifications = ({ themeDark, setThemeDark }) => {
+const Notifications = () => {
   const navigate = useNavigate();
   const currentUser = useSelector(
     (state) => state?.user?.currentUser?.data?.user?.username
@@ -69,7 +69,7 @@ const Notifications = ({ themeDark, setThemeDark }) => {
 
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       {isFetching && (
         <MainCenter>
           <Loader />

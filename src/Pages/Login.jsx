@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../Components/NavBar";
 import Main from "../Components/Main";
 import styled from "styled-components";
-import {Link, useNavigate} from "react-router-dom";
-import {clearProfile} from "../redux/profileSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {login} from "../redux/apiCalls/apiCalls";
-import {getPlatforms, getProfile} from "../redux/apiCalls/profileApiCalls";
+import { Link, useNavigate } from "react-router-dom";
+import { clearProfile } from "../redux/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/apiCalls/apiCalls";
+import { getPlatforms, getProfile } from "../redux/apiCalls/profileApiCalls";
 
 const Form = styled.form`
   //height: 80%;
@@ -61,11 +61,10 @@ const Form = styled.form`
       font-size: 120px;
     }
   }
-  
-  label{
+
+  label {
     font-size: 1.2rem;
   }
-  
 `;
 const Input = styled.input`
   width: 100%;
@@ -84,7 +83,7 @@ const Input = styled.input`
   //margin-bottom: 20px;
   //background: none;
   color: black;
-    //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
+  //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
   font-size: 1.2rem;
 
   @media (max-width: 380px) {
@@ -95,9 +94,9 @@ const Button = styled.button`
   outline: none;
   padding: 10px 20px;
   border-radius: 20px;
-  background: ${(props)=>props.theme.accent};
+  background: ${(props) => props.theme.accent};
   border: none;
-    //color: ${(props) => props.theme.text};
+  //color: ${(props) => props.theme.text};
   color: white;
   font-size: 1rem;
   margin: 15px 0;
@@ -120,80 +119,78 @@ const F2C = styled.div`
   max-width: 1000px;
   align-self: center;
   align-items: center;
-  
+
   //background-color: red;
-  
-  img{
+
+  img {
     width: 70%;
   }
-  
 `;
-
 
 const DF = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const Login = ({themeDark, setThemeDark}) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const currentUser = useSelector((state) => state?.user?.currentUser?.data);
+const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state?.user?.currentUser?.data);
 
-    const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({});
 
-    const handleChange = (e) => {
-        setUserData({...userData, [e.target.name]: e.target.value});
-    };
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        dispatch(clearProfile());
-        await login(dispatch, userData);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(clearProfile());
+    await login(dispatch, userData);
+  };
 
-    useEffect(() => {
-        if (currentUser) navigate("/profile");
-    }, [currentUser]);
+  useEffect(() => {
+    if (currentUser) navigate("/profile");
+  }, [currentUser]);
 
-    return (<>
-        <NavBar themeDark={themeDark} setThemeDark={setThemeDark}/>
-        <Main>
-            <DF>
-            <F2C>
-                <div>
-                    Some Content
-                </div>
-                <Form className="login" onSubmit={(e) => handleSubmit(e)}>
-                    <h1>Login</h1>
-                    <label>Username</label>
-                    <Input
-                        onChange={(e) => handleChange(e)}
-                        type="text"
-                        required
-                        name="username"
-                        // placeholder="Username"
-                    />
-                    <label>Password</label>
-                    <Input
-                        onChange={(e) => handleChange(e)}
-                        type="password"
-                        required
-                        name="password"
-                        // placeholder="Password"
-                    />
-                    <Button type="submit">Login</Button>
-                    <span>
-                        <Link to={"/resetpassword"}>Forgot Password?</Link>
-                    </span>
-                    <span>
-                        <Link to={"/register"}>Create a new Account</Link>
-                    </span>
-                </Form>
-            </F2C>
-            </DF>
-        </Main>
-    </>);
+  return (
+    <>
+      <NavBar />
+      <Main>
+        <DF>
+          <F2C>
+            <div>Some Content</div>
+            <Form className="login" onSubmit={(e) => handleSubmit(e)}>
+              <h1>Login</h1>
+              <label>Username</label>
+              <Input
+                onChange={(e) => handleChange(e)}
+                type="text"
+                required
+                name="username"
+                // placeholder="Username"
+              />
+              <label>Password</label>
+              <Input
+                onChange={(e) => handleChange(e)}
+                type="password"
+                required
+                name="password"
+                // placeholder="Password"
+              />
+              <Button type="submit">Login</Button>
+              <span>
+                <Link to={"/resetpassword"}>Forgot Password?</Link>
+              </span>
+              <span>
+                <Link to={"/register"}>Create a new Account</Link>
+              </span>
+            </Form>
+          </F2C>
+        </DF>
+      </Main>
+    </>
+  );
 };
 
 export default Login;

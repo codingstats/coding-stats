@@ -69,7 +69,7 @@ const Button = styled.button`
   }
 `;
 
-const ResetPasswordNew = ({ themeDark, setThemeDark }) => {
+const ResetPasswordNew = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState({ status: 1, message: "" });
@@ -107,7 +107,7 @@ const ResetPasswordNew = ({ themeDark, setThemeDark }) => {
   }, []);
   return (
     <>
-      <NavBar themeDark={themeDark} setThemeDark={setThemeDark} />
+      <NavBar />
       <Main>
         <Form action="" onSubmit={(e) => handleSubmit(e)} className="register">
           <h1>Reset Password</h1>

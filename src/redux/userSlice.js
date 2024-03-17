@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     isFetching: false,
     error: false,
     errorMsg: null,
+    dark: true,
   },
   reducers: {
     userStart: (state) => {
@@ -52,6 +53,11 @@ export const userSlice = createSlice({
       state.currentUser = null;
       state.errorMsg = null;
     },
+    changeUserTheme: (state, action) => {
+      state.isFetching = false;
+      state.dark = action.payload;
+      state.error = false;
+    },
   },
 });
 
@@ -64,5 +70,6 @@ export const {
   userFailure,
   errorReset,
   logOut,
+  changeUserTheme,
 } = userSlice.actions;
 export default userSlice.reducer;

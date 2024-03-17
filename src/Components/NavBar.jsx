@@ -10,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/logo.png";
 import logoLight from "../assets/logo-light.png";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUserTheme } from "../redux/userSlice";
 
 const Container = styled.div`
   position: sticky;
@@ -112,7 +114,9 @@ const Profile = styled.div`
   }
 `;
 
-const NavBar = ({ themeDark, setThemeDark }) => {
+const NavBar = () => {
+  const themeDark = useSelector((state) => state?.user?.dark);
+  const dispatch = useDispatch();
   return (
     <Container>
       <div>
@@ -123,7 +127,7 @@ const NavBar = ({ themeDark, setThemeDark }) => {
         </Navs>
 
         <Buttons>
-          <Theme onClick={() => setThemeDark((p) => !p)}>
+          <Theme onClick={() => dispatch(changeUserTheme(!themeDark))}>
             <FontAwesomeIcon icon={themeDark ? faCloudMoon : faCloudSun} />
           </Theme>
 
