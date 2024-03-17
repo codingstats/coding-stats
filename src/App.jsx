@@ -3,18 +3,15 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
-import Individual from "./Pages/Individual";
 import Notifications from "./Pages/Notifications";
 import Settings from "./Pages/Settings";
 import GlobalStyle from "./globalStyles";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./Components/Themes";
-import { useState } from "react";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import { useDispatch, useSelector } from "react-redux";
 import { userRequest } from "./requestMethods";
-import CodingPlatforms from "./Pages/CodingPlatforms";
 import UserInfo from "./Pages/UserInfo";
 import DeleteAccount from "./Pages/ProfilePages/DeleteAccount";
 import ChangePassword from "./Pages/ProfilePages/ChangePassword";
@@ -23,6 +20,8 @@ import ResetPasswordNew from "./Pages/ProfilePages/ResetPasswordNew";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { changeUserTheme } from "./redux/userSlice";
+import SetPlatforms from "./Pages/SetPlatforms";
+import UpdatePlatforms from "./Pages/UpdatePlatforms";
 
 const Body = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
@@ -95,8 +94,12 @@ function App() {
       element: <ResetPasswordNew />,
     },
     {
-      path: "/select-platforms",
-      element: <CodingPlatforms />,
+      path: "/setPlatforms",
+      element: <SetPlatforms />,
+    },
+    {
+      path: "/updatePlatforms",
+      element: <UpdatePlatforms />,
     },
     {
       path: "/register",

@@ -7,7 +7,7 @@ import leetcodeLogo from "../assets/leetcode.png";
 import codeforcesLogo from "../assets/codeforces.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { getPlatforms, setPlatform } from "../redux/apiCalls/profileApiCalls";
+import { setPlatform } from "../redux/apiCalls/profileApiCalls";
 
 const FormContainer = styled.div`
   //height: 80%;
@@ -104,7 +104,7 @@ const Input = styled.input`
   }
 `;
 
-const CodingPlatforms = () => {
+const UpdatePlatforms = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(
@@ -226,4 +226,4 @@ const CodingPlatforms = () => {
   );
 };
 
-export default CodingPlatforms;
+export default UpdatePlatforms;

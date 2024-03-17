@@ -20,12 +20,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  
-  @media screen and (max-width: 1100px){
+
+  @media screen and (max-width: 1100px) {
     padding: 10px;
-    overflow: hidden; 
+    overflow: hidden;
   }
-  
 `;
 
 const Top = styled.div`
@@ -35,11 +34,9 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
 
-
   @media screen and (max-width: 670px) {
     flex-direction: column;
   }
-
 
   .first {
     display: flex;
@@ -53,9 +50,8 @@ const Top = styled.div`
       margin-bottom: 5px;
       justify-content: space-around;
     }
-
   }
-  
+
   .img {
     height: 120px;
     margin-right: 40px;
@@ -70,6 +66,10 @@ const Top = styled.div`
     margin-bottom: 10px;
   }
 
+  a {
+    color: ${(props) => props.theme.accent};
+    cursor: pointer;
+  }
   .mid {
     /* display: flex;
     flex-direction: column;
@@ -77,14 +77,12 @@ const Top = styled.div`
     //width: calc(100% - 160 - 40%);
 
     p {
-      margin: 0
+      margin: 0;
     }
-
   }
 `;
 
 const Text = styled.div`
-  
   //height: 100%;
   display: flex;
   align-items: center;
@@ -96,14 +94,14 @@ const Text = styled.div`
   background: ${(props) => props.theme.backgroundGradient};
   padding: 10px;
 
-  @media screen and (max-width: 670px){
+  @media screen and (max-width: 670px) {
     width: 100%;
     justify-content: center;
-    > div{
+    > div {
       margin: 0 10px;
     }
   }
-  
+
   .left {
     //background-color: red;
     height: 100%;
@@ -125,7 +123,7 @@ const Text = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    column-gap: 7px;
+    column-gap: 20px;
     font-weight: lighter;
   }
 
@@ -133,23 +131,23 @@ const Text = styled.div`
   //font-weight: 600;
 
   .school {
-    color: #0758B2;
+    color: #47e9b8;
   }
 
   .basic {
-    color: #2775CC;
+    color: #68a331;
   }
 
   .easy {
-    color: #FF2917;
+    color: #008f40;
   }
 
   .medium {
-    color: #E2FF30;
+    color: #d39b00;
   }
 
   .hard {
-    color: #B22D22;
+    color: #ff6600;
   }
 `;
 
@@ -182,8 +180,14 @@ const MiniStat = ({ platform, heatmap, siteLogo }) => {
             if (sub.difficulty !== "All") return sub.count;
           }
         }),
-        backgroundColor: ["black", "green", "teal", "orange", "red"],
-        borderColor: ["black", "green", "teal", "orange", "red"],
+        backgroundColor: [
+          "#47e9b8",
+          "#aff072",
+          "#008f40",
+          "#ffe600",
+          "#ff6600",
+        ],
+        borderColor: ["#47e9b8", "#aff072", "#008f40", "#ffe600", "#ff6600"],
       },
     ],
   };
@@ -223,7 +227,7 @@ const MiniStat = ({ platform, heatmap, siteLogo }) => {
         </div>
 
         <Text>
-          <div>
+          <div className="left">
             <Doughnut
               data={data}
               options={options}
