@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../Components/NavBar";
 import Main from "../Components/Main";
 import styled from "styled-components";
@@ -48,13 +48,12 @@ const Button = styled.button`
   outline: none;
   padding: 10px 20px;
   border-radius: 5px;
-  background: ${(props)=>props.theme.accent};
+  background: ${(props) => props.theme.accent};
   border: none;
-    //color: ${(props) => props.theme.text};
+  //color: ${(props) => props.theme.text};
   color: white;
   font-size: 1rem;
   margin: 10px;
-
 
   @media (max-width: 730px) {
   }
@@ -73,7 +72,7 @@ const Label = styled.label`
   align-items: center;
   justify-content: space-between;
   align-content: center;
-  
+
   background-color: ${(props) => props.theme.backgroundColor};
   padding: 20px;
   border-radius: 5px;
@@ -92,8 +91,12 @@ const Input = styled.input`
   border-radius: 3px;
   //background: none;
   color: black;
-    //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
+  //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
   font-size: 1.2rem;
+
+  &::placeholder {
+    color: #5f5f5f;
+  }
 
   @media (max-width: 380px) {
     font-size: 30px;
@@ -106,9 +109,7 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
   const currentUser = useSelector(
     (state) => state?.user?.currentUser?.data?.user?.username
   );
-  const platformList = useSelector(
-    (state) => state?.profile?.user?.codingPlatforms
-  );
+  const platformList = useSelector((state) => state?.profile?.platforms);
 
   const [platformData, setPlatformData] = useState({});
 
@@ -119,6 +120,18 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
   const handleNext = () => {
     navigate("/profile");
   };
+  useEffect(() => {
+    platformList.forEach((platform) => {
+      console.log(platform);
+      setPlatformData({
+        ...platformData,
+        [platform.platformName]: platform.handler,
+      });
+    });
+  }, [platformList]);
+  useEffect(() => {
+    console.log("first", platformData);
+  }, [platformList]);
 
   return (
     <>
@@ -133,7 +146,11 @@ const CodingPlatforms = ({ themeDark, setThemeDark }) => {
               type="text"
               required
               name="GFG"
-              placeholder="Enter your GFG Username"
+              placeholder={
+                platformData.gfg === ""
+                  ? "Enter your GFG Username"
+                  : platformData.gfg
+              }
             />
             <Button
               onClick={() => {

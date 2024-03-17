@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CumulativeHeatMap from "../Components/CumulativeHeatMap";
 import Loader from "../Components/Loader";
 import MainCenter from "../Components/MainCenter";
+import { toast } from "react-toastify";
 
 const Cumulative = styled.div`
   margin-top: 40px;
@@ -81,7 +82,8 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
     (state) => state?.search?.user?.codingPlatforms
   );
   const fetchProfile = async (pathname) => {
-    await getSearchedProfile(dispatch, pathname);
+    await getSearchedProfile(dispatch, pathname, navigate);
+    if (profile?.user?.username == null) navigate("/");
   };
 
   const fetchProfileData = async () => {
@@ -117,12 +119,7 @@ const UserInfo = ({ themeDark, setThemeDark }) => {
       )}
       {!isFetching && (
         <>
-          {!profile?.user?.username && (
-            <MainCenter>
-              <h2>Something went wrong</h2>
-              <button onClick={() => navigate("/")}>Go Back</button>
-            </MainCenter>
-          )}
+          {!profile?.user?.username && <MainCenter></MainCenter>}
           {profile?.user?.username && (
             <Main>
               <Info>

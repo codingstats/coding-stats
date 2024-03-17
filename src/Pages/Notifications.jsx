@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { publicRequest } from "../requestMethods";
 import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   width: 100%;
@@ -42,6 +43,7 @@ const Notifications = ({ themeDark, setThemeDark }) => {
   const [isError, setIsError] = useState(false);
   const [platforms, setPlatforms] = useState({});
   const apiCall = async () => {
+    toast("Fetching Notifications");
     setIsFetching(true);
     try {
       const { error, ...res } = (await publicRequest.get("/notifications")).data
@@ -53,6 +55,7 @@ const Notifications = ({ themeDark, setThemeDark }) => {
     } catch (error) {
       setIsFetching(false);
       setIsError(true);
+      toast(`Something went wrong!`);
       console.log(error);
     }
   };

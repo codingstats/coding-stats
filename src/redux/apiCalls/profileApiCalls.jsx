@@ -7,9 +7,11 @@ import {
   heatmapsFetchSuccess,
 } from "../profileSlice";
 import { publicRequest, userRequest } from "../../requestMethods";
+import { toast } from "react-toastify";
 
 export const getProfile = async (dispatch, user) => {
   dispatch(profileStart());
+  toast("Fetching Profile!");
   try {
     const res = await userRequest.get(`/user/profile/${user}`);
     dispatch(
@@ -18,6 +20,7 @@ export const getProfile = async (dispatch, user) => {
       })
     );
   } catch (error) {
+    toast("User not Found!");
     dispatch(profileFailure());
   }
 };
@@ -35,6 +38,7 @@ export const setPlatform = async (dispatch, platform, user) => {
 
 export const getPlatforms = async (dispatch, platforms) => {
   dispatch(profileStart());
+  toast("Fetching User Details");
   try {
     const payload = [];
     await platforms.forEach(async (platform) => {
@@ -59,6 +63,7 @@ export const getPlatforms = async (dispatch, platforms) => {
     });
   } catch (error) {
     dispatch(profileFailure());
+    toast("Unable to fetch user details");
   }
 };
 
@@ -88,6 +93,7 @@ export const getHeatmaps = async (dispatch, platforms) => {
       }
     });
   } catch (error) {
+    toast("Unable to fetch user details");
     dispatch(profileFailure());
   }
 };
