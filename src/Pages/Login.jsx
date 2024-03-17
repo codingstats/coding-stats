@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { clearProfile } from "../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiCalls/apiCalls";
-import { getPlatforms, getProfile } from "../redux/apiCalls/profileApiCalls";
 import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
 
@@ -143,7 +142,9 @@ const DF = styled.div`
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state?.user?.currentUser?.data);
+  const currentUser = useSelector(
+    (state) => state?.user?.currentUser?.data?.user?.username
+  );
   const isFetching = useSelector((state) => state?.user?.isFetching);
   const [userData, setUserData] = useState({});
 

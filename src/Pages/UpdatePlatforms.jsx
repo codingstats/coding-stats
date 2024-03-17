@@ -7,7 +7,7 @@ import leetcodeLogo from "../assets/leetcode.png";
 import codeforcesLogo from "../assets/codeforces.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { getPlatforms, setPlatform } from "../redux/apiCalls/profileApiCalls";
+import { setPlatform } from "../redux/apiCalls/profileApiCalls";
 
 // Styled components for form elements
 const FormContainer = styled.div`
@@ -105,8 +105,12 @@ const Input = styled.input`
   }
 `;
 
+<<<<<<< HEAD:src/Pages/CodingPlatforms.jsx
 // Functional component for selecting coding platforms
 const CodingPlatforms = () => {
+=======
+const UpdatePlatforms = () => {
+>>>>>>> 8e1a4da33910ea0aa7e86120c1b3c088001624ab:src/Pages/UpdatePlatforms.jsx
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(
@@ -228,4 +232,4 @@ const CodingPlatforms = () => {
   );
 };
 
-export default CodingPlatforms;
+export default UpdatePlatforms;

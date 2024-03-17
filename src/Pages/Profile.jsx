@@ -194,19 +194,15 @@ const Profile = () => {
 
   // Effect hook to fetch profile data on component mount or update
   useEffect(() => {
-    console.log(pathname, currentUser?.data?.user?.username);
-
-    if (pathname === currentUser?.data?.user?.username) {
-      if (currentUser === null) navigate("/login");
-      if (currentUser !== null) {
-        fetchProfile(currentUser?.data?.user?.username);
-      }
-    } else navigate(`/user/${currentUser?.data?.user?.username}`);
+    if (currentUser && pathname === currentUser?.data?.user?.username) {
+      fetchProfile(currentUser?.data?.user?.username);
+    } else navigate(`/user/${pathname}`);
   }, [currentUser]);
 
   useEffect(() => {
-    if (profile?.user?.codingPlatforms?.length > 0) fetchProfileData();
-  }, [profile?.user?.codingPlatforms]);
+    if (currentUser && profile?.user?.codingPlatforms?.length > 0)
+      fetchProfileData();
+  }, [profile?.user]);
 
   // Function to handle logout
   const handleLogout = () => {
@@ -250,7 +246,7 @@ const Profile = () => {
                   </div>
                   <div className="buttons">
                     <a onClick={handleLogout}>Log Out</a>
-                    <Link to={"/select-platforms"}> Change Platforms</Link>
+                    <Link to={"/updatePlatforms"}> Change Platforms</Link>
                     <Link to={"/profile/changepassword"}>Change Password</Link>
                     <Link to={"/profile/deleteaccount"}>Delete Account</Link>
                   </div>

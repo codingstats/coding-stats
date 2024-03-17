@@ -6,6 +6,8 @@ import Main from "../Components/Main";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../redux/apiCalls/apiCalls";
 import { errorReset } from "../redux/userSlice";
+import MainCenter from "../Components/MainCenter";
+import Loader from "../Components/Loader";
 
 // Styled components for styling
 const Form = styled.form`
@@ -54,6 +56,7 @@ const Button = styled.button`
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isFetching = useSelector((state) => state?.user?.isFetching);
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const [userData, setUserData] = useState({});
 
@@ -70,7 +73,7 @@ const Register = () => {
 // useEffect hook to navigate to select-platforms page if user is already logged in and reset error state
  
   useEffect(() => {
-    if (currentUser !== null) navigate("/select-platforms");
+    if (currentUser !== null) navigate("/setPlatforms");
     dispatch(errorReset());
   }, [currentUser]);
 
@@ -82,51 +85,58 @@ const Register = () => {
   return (
     <>
       <NavBar />
-      <Main>
-        <Form onSubmit={(e) => handleSubmit(e)} className="register">
-          <h1>Create an Account</h1>
+      {isFetching && (
+        <MainCenter>
+          <Loader />
+        </MainCenter>
+      )}
+      {!isFetching && (
+        <Main>
+          <Form onSubmit={(e) => handleSubmit(e)} className="register">
+            <h1>Create an Account</h1>
 
-          <Input
-            required
-            type="text"
-            placeholder="Name"
-            name="name"
-            onChange={(e) => handleChange(e)}
-          />
-          <Input
-            required
-            type="text"
-            placeholder="Email"
-            name="email"
-            onChange={(e) => handleChange(e)}
-          />
-          <Input
-            required
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-          />
-          <Input
-            required
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          <Input
-            required
-            type="password"
-            placeholder="Confirm Password"
-            name="passwordConfirm"
-            onChange={(e) => handleChange(e)}
-          />
-          <Button type="submit">Register</Button>
-          <span>
-            <Link to={"/login"}>Already have an Account? Login</Link>
-          </span>
-        </Form>
-      </Main>
+            <Input
+              required
+              type="text"
+              placeholder="Name"
+              name="name"
+              onChange={(e) => handleChange(e)}
+            />
+            <Input
+              required
+              type="text"
+              placeholder="Email"
+              name="email"
+              onChange={(e) => handleChange(e)}
+            />
+            <Input
+              required
+              type="text"
+              placeholder="Username"
+              name="username"
+              onChange={(e) => handleChange(e)}
+            />
+            <Input
+              required
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={(e) => handleChange(e)}
+            />
+            <Input
+              required
+              type="password"
+              placeholder="Confirm Password"
+              name="passwordConfirm"
+              onChange={(e) => handleChange(e)}
+            />
+            <Button type="submit">Register</Button>
+            <span>
+              <Link to={"/login"}>Already have an Account? Login</Link>
+            </span>
+          </Form>
+        </Main>
+      )}
     </>
   );
 };
