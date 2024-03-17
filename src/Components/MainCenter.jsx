@@ -6,15 +6,12 @@ const Container = styled.div`
   //width: calc(100vw - 80px);
   color: ${(props) => props.theme.text};
   overflow: hidden;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
   //padding-top: 200px;
-  border-radius: 30px;
-  
+
   background: ${(props) => props.theme.backgroundGradient};
   //height: calc(100vh - 80px);
   //width: calc(100vw - 80px);
@@ -27,6 +24,7 @@ const Container = styled.div`
   padding: 40px;
   //padding-top: 200px;
   border-radius: 30px;
+
   button {
     margin: 20px;
     padding: 14px 0px;

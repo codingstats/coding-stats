@@ -13,6 +13,7 @@ const Container = styled.div`
   padding: 40px;
   //padding-top: 200px;
   border-radius: 30px;
+  margin: 20px;
 `;
 
 const Main = ({ children }) => {

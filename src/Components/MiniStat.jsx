@@ -27,6 +27,14 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  .first{
+    display: flex;
+    background: ${(props) => props.theme.backgroundGradient};
+    padding: 10px;
+    height: 100%;
+    border-radius: 5px;
+  }
+  
   .img {
     height: 120px;
     margin-right: 40px;
@@ -45,7 +53,7 @@ const Top = styled.div`
     /* display: flex;
     flex-direction: column;
     align-items: center; */
-    width: calc(100% - 160 - 40%);
+    //width: calc(100% - 160 - 40%);
 
     p {
       margin: 0
@@ -56,11 +64,17 @@ const Top = styled.div`
 
 const Text = styled.div`
   width: 100%;
-  //height: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   //margin-left: 40px;
+
+  background-color: red;
+  width: fit-content;
+
+  background: ${(props) => props.theme.backgroundGradient};
+  padding: 10px;
 
   .left {
     //background-color: red;
@@ -128,33 +142,28 @@ const HeatMap = styled.div`
 const MiniStat = ({platform, heatmap, siteLogo}) => {
     ChartJS.register(ArcElement, Tooltip, Legend);
     const data = {
-        labels: [],
-        datasets: [
-            {
-                label: ["Solved"],
-                data: platform?.submissionCount?.map((sub) => {
-                    if (platform?.submissionCount?.length == 1) return sub.count;
-                    else {
-                        if (sub.difficulty !== "All") return sub.count;
-                    }
-                }),
-                backgroundColor: ["black", "green", "teal", "orange", "red"],
-                borderColor: ["black", "green", "teal", "orange", "red"],
-            },
-        ],
+        labels: [], datasets: [{
+            label: ["Solved"],
+            data: platform?.submissionCount?.map((sub) => {
+                if (platform?.submissionCount?.length == 1) return sub.count; else {
+                    if (sub.difficulty !== "All") return sub.count;
+                }
+            }),
+            backgroundColor: ["black", "green", "teal", "orange", "red"],
+            borderColor: ["black", "green", "teal", "orange", "red"],
+        },],
     };
 
     const options = {};
 
-    return (
-        <Container>
-            <Top>
+    return (<Container>
+        <Top>
+            <div className="first">
                 <div className="img">
                     <img src={siteLogo} alt="logo" className="site"/>
                     <a target="_blank" href={platform?.profileLink}>
                         Go to site
                     </a>
-
                 </div>
 
                 <div className="mid">
@@ -172,28 +181,26 @@ const MiniStat = ({platform, heatmap, siteLogo}) => {
                         {platform?.streak}
                     </p>
                 </div>
+            </div>
 
-                <Text>
-                    <div className="left">
-                        <Doughnut data={data} options={options} style={{width: "125px"}}/>
-                    </div>
-                    <div className="right">
-                        {platform?.submissionCount?.map((sub) => (
-                            <span
-                                key={sub.difficulty}
-                                className={sub?.difficulty?.toLowerCase()}
-                            >
+            <Text>
+                <div>
+                    <Doughnut data={data} options={options} style={{width: "125px"}}/>
+                </div>
+                <div className="right">
+                    {platform?.submissionCount?.map((sub) => (<span
+                        key={sub.difficulty}
+                        className={sub?.difficulty?.toLowerCase()}
+                    >
                 {`${sub.difficulty}: ${sub.count}`}
-              </span>
-                        ))}
-                    </div>
-                </Text>
-            </Top>
-            <HeatMap>
-                {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={2024}/>}
-            </HeatMap>
-        </Container>
-    );
+              </span>))}
+                </div>
+            </Text>
+        </Top>
+        <HeatMap>
+            {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={2024}/>}
+        </HeatMap>
+    </Container>);
 };
 
 export default MiniStat;

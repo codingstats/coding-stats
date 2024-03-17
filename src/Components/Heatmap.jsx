@@ -20,7 +20,7 @@ function Heatmap({heatmapData, year}) {
             return;
         }
         console.log(event);
-        setTooltipData({value, x: event.pageX, y: event.pageY});
+        setTooltipData({value, x: event.nativeEvent.layerX, y: event.nativeEvent.layerY});
     };
 
     const handleCellLeave = () => {
@@ -67,7 +67,7 @@ function Heatmap({heatmapData, year}) {
             fontSize: "18px",
             padding: "4px",
             top: tooltipData.y,
-            left: tooltipData.x
+            left: tooltipData.x+15
         }}>
             {tooltipData.value.count} submissions on {tooltipData.value.date}
         </div>)}

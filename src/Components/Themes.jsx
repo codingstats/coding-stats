@@ -8,8 +8,8 @@ export const lightTheme = {
   textRgba: "22,22,29",
   accentRgba: "127, 28, 207",
 
-  backgroundColor: "rgb(207,177,225, 0.15)",
-  backgroundGradient: "linear-gradient(45deg, rgba(207,177,225,0.15) 0%, rgba(187,204,237,0.15) 100%)",
+  backgroundColor: "rgb(207,177,225,0.5)",
+  backgroundGradient: "linear-gradient(45deg, rgba(187,204,237,0.25) 0%, rgba(187,204,237,0.25) 100%)",
 
   colorSecondary: "#777777",
 

@@ -54,7 +54,7 @@ const Form = styled.form`
     border-radius: 3px;
     margin-bottom: 20px;
     //background: none;
-    color: ${(props) => props.theme.text};
+    color: black;
     //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
     font-size: 1.2rem;
   }

@@ -23,7 +23,7 @@ const Body = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
   
   // background: ${(props) => props.theme.text};
-  //height: 100vh;
+  //min-height: 100vh;
   width: 100vw;
   box-sizing: border-box;
   margin: 0;
