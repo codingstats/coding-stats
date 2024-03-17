@@ -36,7 +36,7 @@ const F2C = styled.div`
   
 `;
 
-const DF = styled.div`
+const DF = styled.div` 
   display: flex;
   justify-content: center;
 `;

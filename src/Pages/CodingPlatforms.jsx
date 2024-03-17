@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 import { getPlatforms, setPlatform } from "../redux/apiCalls/profileApiCalls";
 
 const FormContainer = styled.div`
-  height: 80%;
+  //height: 80%;
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -45,13 +45,16 @@ const FormContainer = styled.div`
 `;
 
 const Button = styled.button`
-  margin: 20px;
-  padding: 20px 50px;
-  background-color: ${(props) => props.theme.accent};
-  border-radius: 40px;
-  font-size: 20px;
-  cursor: pointer;
-  font-family: "Expletus Sans", sans-serif;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: ${(props)=>props.theme.accent};
+  border: none;
+    //color: ${(props) => props.theme.text};
+  color: white;
+  font-size: 1rem;
+  margin: 10px;
+
 
   @media (max-width: 730px) {
   }
@@ -69,6 +72,12 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  align-content: center;
+  
+  background-color: ${(props) => props.theme.backgroundColor};
+  padding: 20px;
+  border-radius: 5px;
+  margin: 10px;
 
   img {
     height: 80px;
@@ -77,14 +86,14 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  width: 600px;
-  padding: 20px 30px;
-  border-radius: 30px;
-  font-size: 20px;
-  margin: 15px;
-  background-color: #decdc3;
-  color: rgba(45, 64, 89, 1);
-  outline: none;
+  width: 400px;
+  padding: 8px 30px;
+  border: solid 2px ${(props) => props.theme.text};
+  border-radius: 3px;
+  //background: none;
+  color: black;
+    //box-shadow: 1px 1px 4px ${(props) => props.theme.text};
+  font-size: 1.2rem;
 
   @media (max-width: 380px) {
     font-size: 30px;
