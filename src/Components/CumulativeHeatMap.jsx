@@ -5,9 +5,13 @@ import { useState } from "react";
 const HeatMap = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  //height: 100%;
+  width: 100%;
   flex: 4;
-  width: 80%;
+  overflow: scroll;
+  padding: 10px;
+
   svg {
     height: 100%;
     width: 100%;

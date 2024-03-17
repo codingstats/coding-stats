@@ -27,9 +27,8 @@ function Heatmap({heatmapData, year}) {
         setTooltipData(null);
     };
 
-    return (<div style={{height: "200px", position: "relative"}}>
+    return (<div style={{height: "200px", position: "relative", minWidth: "1000px"}}>
         <CalendarHeatmap
-
             startDate={new Date(`${year}-01-01`)}
             endDate={new Date(`${year}-12-31`)}
             values={values}

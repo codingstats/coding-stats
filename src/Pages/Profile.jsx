@@ -25,6 +25,11 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
+
+  @media screen and (max-width: 1000px){
+    flex-direction: column;
+  }
+  
 `;
 
 const Info = styled.div`
@@ -33,26 +38,45 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 30%;
+  width: 20%;
   height: max-content;
   padding-bottom: 20px;
   //overflow: hidden;
   margin-bottom: 40px;
 
-  position: sticky;
-  top: 0;
+  @media screen and (max-width: 1000px) {
+    order: 1;
+    width: 100%;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+    > div {
+      max-width: 500px;
+    }
+  }
 
   .info {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    //width: 100%;
     height: 100%;
+
+    @media screen and (max-width: 1330px) {
+      flex-direction: column-reverse;
+    }
+
+
   }
 
   .info-section {
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 1330px) {
+      align-items: center;
+    }
 
     h3 {
       color: ${(props) => props.theme.accent};
@@ -66,6 +90,12 @@ const Info = styled.div`
     border: 3px solid ${(props) => props.theme.backgroundColor};
     border-radius: 50%;
     box-shadow: ${(props) => props.theme.body} 0px 0px 2px;
+
+    @media screen and (max-width: 1330px) {
+      margin-bottom: 10px;
+    }
+
+
   }
 
   img {
@@ -78,6 +108,13 @@ const Info = styled.div`
     align-items: center;
     justify-content: flex-start;
     width: 100%;
+
+    @media screen and (max-width: 1000px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
     a {
       margin: 20px;
@@ -98,13 +135,21 @@ const Info = styled.div`
         color: #ea5455;
         border: 1px solid #decdc3;
       }
+
+      @media screen and (max-width: 1000px) {
+        margin: 0;
+      }
+
     }
   }
 `;
 
 const Data = styled.div`
-  //width: 65%;
-`;
+  width: 80%;
+  @media screen and (max-width: 1000px){
+    order: 2;
+    width: 100%;
+  }`;
 
 const Individuals = styled.div`
   position: relative;

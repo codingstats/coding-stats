@@ -20,6 +20,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  
+  @media screen and (max-width: 1100px){
+    padding: 10px;
+    overflow: hidden; 
+  }
+  
 `;
 
 const Top = styled.div`
@@ -29,14 +35,27 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
 
+
+  @media screen and (max-width: 670px) {
+    flex-direction: column;
+  }
+
+
   .first {
     display: flex;
     background: ${(props) => props.theme.backgroundGradient};
     padding: 10px;
     height: 100%;
     border-radius: 5px;
-  }
 
+    @media screen and (max-width: 670px) {
+      width: 100%;
+      margin-bottom: 5px;
+      justify-content: space-around;
+    }
+
+  }
+  
   .img {
     height: 120px;
     margin-right: 40px;
@@ -58,25 +77,33 @@ const Top = styled.div`
     //width: calc(100% - 160 - 40%);
 
     p {
-      margin: 0;
+      margin: 0
     }
+
   }
 `;
 
 const Text = styled.div`
-  width: 100%;
-  height: 100%;
+  
+  //height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   //margin-left: 40px;
 
-  background-color: red;
   width: fit-content;
 
   background: ${(props) => props.theme.backgroundGradient};
   padding: 10px;
 
+  @media screen and (max-width: 670px){
+    width: 100%;
+    justify-content: center;
+    > div{
+      margin: 0 10px;
+    }
+  }
+  
   .left {
     //background-color: red;
     height: 100%;
@@ -106,33 +133,35 @@ const Text = styled.div`
   //font-weight: 600;
 
   .school {
-    color: #0758b2;
+    color: #0758B2;
   }
 
   .basic {
-    color: #2775cc;
+    color: #2775CC;
   }
 
   .easy {
-    color: #ff2917;
+    color: #FF2917;
   }
 
   .medium {
-    color: #e2ff30;
+    color: #E2FF30;
   }
 
   .hard {
-    color: #b22d22;
+    color: #B22D22;
   }
 `;
 
 const HeatMap = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  justify-content: flex-start;
+  //height: 100%;
   width: 100%;
   flex: 4;
+  overflow: scroll;
+  padding: 10px;
 
   svg {
     height: 100%;

@@ -14,6 +14,12 @@ const Container = styled.div`
   //padding-top: 200px;
   border-radius: 30px;
   margin: 20px;
+
+
+  @media screen and (max-width: 768px){
+    padding: 0;
+  }
+
 `;
 
 const Main = ({ children }) => {
