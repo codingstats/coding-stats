@@ -119,7 +119,7 @@ const CodingPlatforms = () => {
   };
 
   const handleNext = () => {
-    navigate("/profile");
+    navigate(`/profile/${currentUser}`);
   };
 
   const getPlaceholder = (name) => {
@@ -219,7 +219,7 @@ const CodingPlatforms = () => {
               Submit
             </Button>
           </Label>
-          <Button onClick={() => handleNext()}>Next</Button>
+          <Button onClick={() => handleNext()}>Go to Profile</Button>
         </FormContainer>
       </Main>
     </>

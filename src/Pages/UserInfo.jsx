@@ -92,7 +92,8 @@ const UserInfo = () => {
   };
 
   useEffect(() => {
-    if (currentUser === pathname) navigate("/profile");
+    if (currentUser && currentUser === pathname)
+      navigate(`/profile/${pathname}`);
     fetchProfile(pathname);
   }, [pathname]);
 

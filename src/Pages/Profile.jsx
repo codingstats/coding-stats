@@ -4,7 +4,7 @@ import Main from "../Components/Main";
 import image from "../assets/image.svg";
 import styled from "styled-components";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MiniStat from "../Components/MiniStat";
 import gfgLogo from "../assets/gfg.png";
 import leetcodeLogo from "../assets/leetcode.png";
@@ -26,10 +26,9 @@ const Container = styled.div`
   justify-content: space-between;
   position: relative;
 
-  @media screen and (max-width: 1000px){
+  @media screen and (max-width: 1000px) {
     flex-direction: column;
   }
-  
 `;
 
 const Info = styled.div`
@@ -50,7 +49,7 @@ const Info = styled.div`
     padding: 10px;
     flex-direction: row;
     justify-content: space-evenly;
-    
+
     > div {
       max-width: 500px;
     }
@@ -66,8 +65,6 @@ const Info = styled.div`
     @media screen and (max-width: 1330px) {
       flex-direction: column-reverse;
     }
-
-
   }
 
   .info-section {
@@ -94,8 +91,6 @@ const Info = styled.div`
     @media screen and (max-width: 1330px) {
       margin-bottom: 10px;
     }
-
-
   }
 
   img {
@@ -139,17 +134,17 @@ const Info = styled.div`
       @media screen and (max-width: 1000px) {
         margin: 0;
       }
-
     }
   }
 `;
 
 const Data = styled.div`
   width: 80%;
-  @media screen and (max-width: 1000px){
+  @media screen and (max-width: 1000px) {
     order: 2;
     width: 100%;
-  }`;
+  }
+`;
 
 const Individuals = styled.div`
   position: relative;
@@ -183,6 +178,7 @@ const Profile = () => {
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const profile = useSelector((state) => state?.profile);
   const isFetching = useSelector((state) => state?.profile?.isFetching);
+  const pathname = useLocation().pathname.split("/")[2];
   const fetchProfile = async (user) => {
     await getProfile(dispatch, user);
     console.log(profile);
@@ -194,12 +190,18 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (currentUser === null) navigate("/login");
-    fetchProfile(currentUser?.data?.user?.username);
+    console.log(pathname, currentUser?.data?.user?.username);
+
+    if (pathname === currentUser?.data?.user?.username) {
+      if (currentUser === null) navigate("/login");
+      if (currentUser !== null) {
+        fetchProfile(currentUser?.data?.user?.username);
+      }
+    } else navigate(`/user/${pathname}`);
   }, [currentUser]);
 
   useEffect(() => {
-    fetchProfileData();
+    if (profile?.user?.codingPlatforms?.length > 0) fetchProfileData();
   }, [profile?.user?.codingPlatforms]);
 
   const handleLogout = () => {

@@ -117,6 +117,9 @@ const Profile = styled.div`
 const NavBar = () => {
   const themeDark = useSelector((state) => state?.user?.dark);
   const dispatch = useDispatch();
+  const currentUser = useSelector(
+    (state) => state?.user?.currentUser?.data?.user?.username
+  );
   return (
     <Container>
       <div>
@@ -138,7 +141,7 @@ const NavBar = () => {
           </Link>
 
           <Profile>
-            <Link to={"/profile"} style={{ display: "flex" }}>
+            <Link to={`/profile/${currentUser}`} style={{ display: "flex" }}>
               <img src={profile} alt="profile" />
             </Link>
           </Profile>

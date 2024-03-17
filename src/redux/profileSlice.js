@@ -42,6 +42,7 @@ export const profileSlice = createSlice({
       state.error = false;
       state.user = null;
       state.platforms = [];
+      state.heatmaps = [];
     },
   },
 });
