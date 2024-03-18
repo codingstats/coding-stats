@@ -131,7 +131,7 @@ const SetPlatforms = () => {
   const [platformData, setPlatformData] = useState({});
 
   const handleChange = (name, value) => {
-    setPlatformData({ ...platformData, [name]: value });
+    setPlatformData({ ...platformData, [name]: value.trim() });
   };
 
   const handleNext = () => {

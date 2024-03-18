@@ -315,11 +315,11 @@ const Home = () => {
                 <p>Jigyasu Saini</p>
                 <p>(2023CA49)</p>
               </div>
-              <div class="box">
+              <div className="box">
                 <p>Abhishek Singh</p>
                 <p>(2023CA07)</p>
               </div>
-              <div class="box">
+              <div className="box">
                 <p>Abhinav Awasthi</p>
                 <p>(2023CA02)</p>
               </div>

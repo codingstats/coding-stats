@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiCalls/apiCalls";
 import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
-
+import logo from "../assets/logo.png";
+import logoLight from "../assets/logo-light.png";
 
 // Styling for the login form
 const Form = styled.form`
@@ -132,6 +133,7 @@ const Login = () => {
   const currentUser = useSelector(
     (state) => state?.user?.currentUser?.data?.user?.username
   );
+  const themeDark = useSelector((state) => state?.user?.dark);
   const isFetching = useSelector((state) => state?.user?.isFetching);
   const [userData, setUserData] = useState({});
 
@@ -140,7 +142,7 @@ const Login = () => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-   // Function to handle form submission
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(clearProfile());
@@ -160,10 +162,12 @@ const Login = () => {
         </MainCenter>
       )}
       {!isFetching && (
-        <Main>
+        <MainCenter>
           <DF>
             <F2C>
-              <div>Some Content</div>
+              <div>
+                <img src={themeDark ? logo : logoLight} alt="Coding Stats" />
+              </div>
               <Form className="login" onSubmit={(e) => handleSubmit(e)}>
                 <h1>Login</h1>
                 <label>Username</label>
@@ -192,7 +196,7 @@ const Login = () => {
               </Form>
             </F2C>
           </DF>
-        </Main>
+        </MainCenter>
       )}
     </>
   );
