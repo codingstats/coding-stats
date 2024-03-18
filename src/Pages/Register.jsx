@@ -8,6 +8,7 @@ import { signup } from "../redux/apiCalls/apiCalls";
 import { errorReset } from "../redux/userSlice";
 import MainCenter from "../Components/MainCenter";
 import Loader from "../Components/Loader";
+import { toast } from "react-toastify";
 
 // Styled components for styling
 const Form = styled.form`
@@ -84,7 +85,7 @@ const Register = () => {
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const [userData, setUserData] = useState({});
 
-   // Function to handle changes in form inputs
+  // Function to handle changes in form inputs
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -92,10 +93,12 @@ const Register = () => {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    signup(dispatch, userData);
+    if (userData?.password === userData?.passwordConfirm)
+      signup(dispatch, userData);
+    else toast("Passwords do not Match!");
   };
-// useEffect hook to navigate to select-platforms page if user is already logged in and reset error state
- 
+  // useEffect hook to navigate to select-platforms page if user is already logged in and reset error state
+
   useEffect(() => {
     if (currentUser !== null) navigate("/setPlatforms");
     dispatch(errorReset());
@@ -128,7 +131,7 @@ const Register = () => {
             />
             <Input
               required
-              type="text"
+              type="email"
               placeholder="Email"
               name="email"
               onChange={(e) => handleChange(e)}
