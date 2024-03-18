@@ -19,7 +19,7 @@ import CumulativeHeatMap from "../Components/CumulativeHeatMap";
 import Loader from "../Components/Loader";
 import MainCenter from "../Components/MainCenter";
 import { toast } from "react-toastify";
-
+import { clearsearch } from "../redux/searchSlice";
 
 // Styled components for styling
 const Cumulative = styled.div`
@@ -85,19 +85,20 @@ const UserInfo = () => {
     (state) => state?.search?.user?.codingPlatforms
   );
 
-    // Function to fetch profile data based on username
+  // Function to fetch profile data based on username
   const fetchProfile = async (pathname) => {
-    await getSearchedProfile(dispatch, pathname, navigate);
-    if (profile?.user?.username == null) navigate("/");
+    const res = await getSearchedProfile(dispatch, pathname, navigate);
+    console.log("res.data", res);
+    console.log("buriburi");
   };
 
-   // Function to fetch profile data for each platform
+  // Function to fetch profile data for each platform
   const fetchProfileData = async () => {
     await getSearchedPlatforms(dispatch, profile?.user?.codingPlatforms);
     await getSearchedHeatmaps(dispatch, profile?.user?.codingPlatforms);
   };
 
-   // Effect to fetch profile data when component mounts or username changes
+  // Effect to fetch profile data when component mounts or username changes
   useEffect(() => {
     if (currentUser && currentUser === pathname)
       navigate(`/profile/${pathname}`);
@@ -106,11 +107,11 @@ const UserInfo = () => {
 
   // Effect to fetch platform and heatmap data when profile data is available
   useEffect(() => {
-    console.log(profile?.user?.codingPlatforms);
+    console.log(profile?.user);
     if (profile?.user?.username) {
       fetchProfileData();
     }
-  }, [profile?.user?.codingPlatforms]);
+  }, [profile?.user]);
 
   // Function to get platform logo based on platform name
   const getLogo = (name) => {
@@ -129,7 +130,18 @@ const UserInfo = () => {
       )}
       {!isFetching && (
         <>
-          {!profile?.user?.username && <MainCenter></MainCenter>}
+          {!profile?.user?.username && (
+            <MainCenter>
+              <button
+                onClick={() => {
+                  dispatch(clearsearch());
+                  navigate("/");
+                }}
+              >
+                Go Back
+              </button>
+            </MainCenter>
+          )}
           {profile?.user?.username && (
             <Main>
               <Info>

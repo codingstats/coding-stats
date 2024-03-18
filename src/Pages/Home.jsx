@@ -60,15 +60,28 @@ const Form = styled.form`
   }
 
   button {
-    outline: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    background: ${(props) => props.theme.accent};
-    border: none;
-    //color: ${(props) => props.theme.text};
-    color: white;
-    font-size: 1rem;
-    //filter: drop-shadow(1px 1px 4px ${(props) => props.theme.text});
+    padding: 14px 0px;
+    border: 1px solid ${(props) => props.theme.accent};
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+    font-size: small;
+    transition: all 0.25s ease;
+    overflow: hidden;
+    cursor: pointer;
+    color: ${(props) => props.theme.text};
+    background-color: transparent;
+
+    &:hover {
+      letter-spacing: 1.2px;
+      color: ${(props) => props.theme.accent};
+      border: 1px solid ${(props) => props.theme.text};
+    }
+
+    @media screen and (max-width: 1000px) {
+      margin: 0;
+    }
   }
 `;
 

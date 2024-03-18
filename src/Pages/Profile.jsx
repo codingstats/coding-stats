@@ -115,7 +115,7 @@ const Info = styled.div`
     a {
       margin: 20px;
       padding: 14px 0px;
-      border: 1px solid #ea5455;
+      border: 1px solid ${(props) => props.theme.accent};
       border-radius: 5px;
       width: 100%;
       text-align: center;
@@ -128,8 +128,8 @@ const Info = styled.div`
 
       &:hover {
         letter-spacing: 1.2px;
-        color: #ea5455;
-        border: 1px solid #decdc3;
+        color: ${(props) => props.theme.accent};
+        border: 1px solid ${(props) => props.theme.text};
       }
 
       @media screen and (max-width: 1000px) {
@@ -218,7 +218,7 @@ const Profile = () => {
   };
 
   console.log(profile?.platforms);
-   // Rendering profile page
+  // Rendering profile page
   return (
     <>
       <NavBar />
