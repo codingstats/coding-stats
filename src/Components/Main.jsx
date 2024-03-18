@@ -1,5 +1,10 @@
 import styled from "styled-components";
-
+/*This code defines a styled container component using styled-components. 
+The container has a background gradient, sets the height to fill the viewport 
+minus 80px, limits the maximum width to 1400px, and applies padding and margin.
+ It also adjusts padding for smaller screens using a media query. The Main component renders 
+ its children inside this container.
+*/
 const Container = styled.div`
   background: ${(props) => props.theme.backgroundGradient};
   height: calc(100vh - 80px);

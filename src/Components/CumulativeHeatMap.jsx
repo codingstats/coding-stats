@@ -17,7 +17,11 @@ const HeatMap = styled.div`
     width: 100%;
   }
 `;
-
+/*
+This code defines a styled component HeatMap and a functional component CumulativeHeatMap. 
+The CumulativeHeatMap component takes a data prop, combines the data, and then renders a Heatmap 
+component passing the combined data as heatmapData.
+*/
 const CumulativeHeatMap = ({ data }) => {
   function convertDateToUnixTimestamp(dateString) {
     const unixTimestamp = Math.floor(new Date(dateString).getTime() / 1000); // Convert date to Unix timestamp in seconds

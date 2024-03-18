@@ -2,6 +2,11 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import {useState} from "react";
 
+/*This code defines a functional component Heatmap that renders a calendar
+ heatmap using the react-calendar-heatmap library. It also includes tooltip 
+ functionality to display submission counts for each date when hovering over the heatmap.
+*/
+
 function Heatmap({heatmapData, year}) {
     const values = Object.keys(heatmapData).map((key) => {
         const timestamp = parseInt(key);

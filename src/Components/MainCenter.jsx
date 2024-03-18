@@ -1,4 +1,13 @@
 import styled from "styled-components";
+/*This styled component creates a container (MainCenter) that
+ centers its children both horizontally and vertically within the viewport. 
+ It has a background gradient, a maximum width of 1400px, and padding around
+  its content. The container adjusts its padding for smaller screens using a
+   media query. Additionally, it styles buttons within the container with a hover effect.
+
+*/
+
+
 
 const Container = styled.div`
   background: ${(props) => props.theme.body};

@@ -13,19 +13,20 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import searchSlice from "./searchSlice";
-
+// Configuration for Redux persist
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
 };
-
+// Combine reducers into root reducer 
 const rootReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   search: searchSlice,
 });
 
+// Create persisted reducer using persistReducer from redux-persist
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -37,4 +38,5 @@ export const store = configureStore({
       },
     }),
 });
+// Create persistor for the Redux store
 export const persistor = persistStore(store);

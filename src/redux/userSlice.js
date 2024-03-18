@@ -10,38 +10,46 @@ export const userSlice = createSlice({
     dark: true,
   },
   reducers: {
+    // Reducer for setting fetching state to true
     userStart: (state) => {
       state.isFetching = true;
     },
+    // Reducer for successful login
     loginSuccess: (state, action) => {
       state.isFetching = false;
       state.error = false;
       state.errorMsg = null;
       state.currentUser = action.payload;
     },
+    // Reducer for successful user data update
     updateSuccess: (state, action) => {
       state.isFetching = false;
       state.error = false;
       state.errorMsg = null;
       state.currentUser = action.payload;
     },
+    // Reducer for successful logout
+
     logoutSuccess: (state) => {
       state.isFetching = false;
       state.error = false;
       state.currentUser = null;
       state.errorMsg = null;
     },
+    // Reducer for resetting error state
     errorReset: (state) => {
       state.isFetching = false;
       state.error = false;
       state.errorMsg = null;
     },
+    // Reducer for successful user deletion
     deleteUserSuccess: (state) => {
       state.isFetching = false;
       state.error = false;
       state.currentUser = null;
       state.errorMsg = null;
     },
+    // Reducer for user-related errors
     userFailure: (state, action) => {
       state.isFetching = false;
       state.errorMsg = action.payload;
@@ -53,6 +61,7 @@ export const userSlice = createSlice({
       state.currentUser = null;
       state.errorMsg = null;
     },
+     // Reducer for changing user theme
     changeUserTheme: (state, action) => {
       state.isFetching = false;
       state.dark = action.payload;

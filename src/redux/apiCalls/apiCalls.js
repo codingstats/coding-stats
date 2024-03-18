@@ -37,7 +37,7 @@ export const signup = async (dispatch, user) => {
     toast(error?.response?.data?.message);
   }
 };
-
+// function to update password
 export const updatePassword = async (dispatch, passwords) => {
   dispatch(userStart());
   try {
@@ -52,6 +52,7 @@ export const updatePassword = async (dispatch, passwords) => {
   }
 };
 
+// function to delete the user
 export const deleteUser = async (dispatch, password) => {
   dispatch(userStart());
   try {
