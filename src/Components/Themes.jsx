@@ -2,13 +2,13 @@ export const lightTheme = {
   dark: false,
   body: "white",
   text: "#16161d",
-  accent: "#c469f8",
+  accent: "rgb(71, 170, 62)",
   fontFamily: "'Source Sans Pro', sans-serif",
   bodyRgba: "231, 222, 204",
   textRgba: "22,22,29",
-  accentRgba: "196, 105, 248",
+  accentRgba: "71, 170, 62",
 
-  backgroundColor: "rgb(207,177,225,0.5)",
+  backgroundColor: "rgb(210, 253, 210,0.34)",
   backgroundGradient:
     "linear-gradient(45deg, rgba(187,204,237,0.25) 0%, rgba(187,204,237,0.25) 100%)",
 
