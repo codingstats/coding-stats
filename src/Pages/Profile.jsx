@@ -56,7 +56,12 @@ const Info = styled.div`
     }
   }
 
-  .info {
+  @media screen and (max-width: 570px) {
+    flex-direction: column;
+  }
+  
+
+    .info {
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -17,20 +17,37 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
   h1 {
     margin-bottom: 50px;
+    color: ${(props)=>props.theme.accent};
   }
 `;
 const Platforms = styled.div`
   width: 100%;
   height: max-content;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  gap: 20px;
+
 `;
 const Platform = styled.div`
-  width: 30%;
+  width: 400px;
+  padding: 20px;
   height: max-content;
+  background:${(props)=>props.theme.backgroundGradient} ;
+  border-radius: 5px;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    border-bottom: 1px solid grey;
+  }
+
 `;
 
 const Notification = styled.div``;

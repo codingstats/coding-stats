@@ -1,9 +1,9 @@
 import NavBar from "../Components/NavBar";
 import Main from "../Components/Main";
-import image from "../assets/image.png";
+import image from "../assets/image.svg";
 import styled from "styled-components";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import MiniStat from "../Components/MiniStat";
 import gfgLogo from "../assets/gfg.png";
 import leetcodeLogo from "../assets/leetcode.png";
@@ -37,21 +37,39 @@ const Info = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 1000px;
   height: 200px;
   padding-bottom: 20px;
   overflow: hidden;
   border-bottom: solid 1px ${(props) => props.theme.text};
   margin-bottom: 40px;
+
   .info-section {
     display: flex;
     flex-direction: column;
+
     h3 {
       color: ${(props) => props.theme.accent};
     }
   }
+
+  .img {
+    height: 100px;
+    background-color: white;
+    padding: 5px;
+    border: 3px solid ${(props) => props.theme.backgroundColor};
+    border-radius: 50%;
+    box-shadow: ${(props) => props.theme.body} 0px 0px 2px;
+
+    @media screen and (max-width: 1330px) {
+      margin-bottom: 10px;
+    }
+  }
+
   img {
     height: 100%;
   }
+
 `;
 
 const Individuals = styled.div`
