@@ -7,11 +7,9 @@ import styled from "styled-components";
 
 */
 
-
-
 const Container = styled.div`
   background: ${(props) => props.theme.body};
-  height: calc(100vh - 80px);
+  height: calc(100vh - 50px);
   //width: calc(100vw - 80px);
   color: ${(props) => props.theme.text};
   overflow: hidden;
