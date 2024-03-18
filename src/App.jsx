@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { changeUserTheme } from "./redux/userSlice";
 import SetPlatforms from "./Pages/SetPlatforms";
 import UpdatePlatforms from "./Pages/UpdatePlatforms";
+import FourOFour from "./Pages/FourOFour";
 
 const Body = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
@@ -45,7 +46,7 @@ function App() {
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const themeDark = useSelector((state) => state?.user?.dark);
 
-   // Setting authorization header for user request
+  // Setting authorization header for user request
   userRequest.defaults.headers.common[
     "Authorization"
   ] = `Bearer ${currentUser?.token}`;
@@ -54,7 +55,7 @@ function App() {
     dispatch(changeUserTheme(val));
   };
 
-    // Creating browser router instance with defined routes
+  // Creating browser router instance with defined routes
   const router = createBrowserRouter([
     {
       path: "/",
@@ -107,6 +108,10 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "*",
+      element: <FourOFour />,
     },
   ]);
 
