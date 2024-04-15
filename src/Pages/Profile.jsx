@@ -59,9 +59,8 @@ const Info = styled.div`
   @media screen and (max-width: 570px) {
     flex-direction: column;
   }
-  
 
-    .info {
+  .info {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -289,7 +288,7 @@ const Profile = () => {
                         ))}
                       </Individuals>
                       <Cumulative>
-                        <h2>Cumulative Profress</h2>
+                        <h2>Cumulative Progress</h2>
 
                         <CumulativeHeatMap
                           data={profile?.heatmaps?.map(
