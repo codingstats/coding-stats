@@ -195,16 +195,26 @@ const UserInfo = () => {
   // Function to fetch profile data based on username
   const fetchProfile = async (pathname) => {
     const res = await getSearchedProfile(dispatch, pathname, navigate);
-    console.log("res.data", res);
-    console.log("buriburi");
+    console.log("res.data", res?.data?.data?.user?.codingPlatforms);
+    console.log("buriburi", pathname);
+    if (profile?.user?.username && currentUser !== pathname) {
+      await getSearchedPlatforms(
+        dispatch,
+        res?.data?.data?.user?.codingPlatforms
+      );
+      await getSearchedHeatmaps(
+        dispatch,
+        res?.data?.data?.user?.codingPlatforms
+      );
+    }
   };
 
   // Function to fetch profile data for each platform
   const fetchProfileData = async () => {
-    if (profile?.user?.username && currentUser !== pathname) {
-      await getSearchedPlatforms(dispatch, profile?.user?.codingPlatforms);
-      await getSearchedHeatmaps(dispatch, profile?.user?.codingPlatforms);
-    }
+    // if (profile?.user?.username && currentUser !== pathname) {
+    //   await getSearchedPlatforms(dispatch, profile?.user?.codingPlatforms);
+    //   await getSearchedHeatmaps(dispatch, profile?.user?.codingPlatforms);
+    // }
   };
 
   // Effect to fetch profile data when component mounts or username changes
@@ -301,7 +311,7 @@ const UserInfo = () => {
                         ))}
                       </Individuals>
                       <Cumulative>
-                        <h2>Cumulative Profress</h2>
+                        <h2>Cumulative Progress</h2>
 
                         <CumulativeHeatMap
                           data={profile?.heatmaps?.map(

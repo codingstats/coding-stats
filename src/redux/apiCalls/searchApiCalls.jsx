@@ -18,6 +18,7 @@ export const getSearchedProfile = async (dispatch, user) => {
     // Sending a GET request to retrieve the user's profile data
     const res = await publicRequest.get(`/user/profile/${user}`);
     // Dispatching action with the retrieved user data on success
+    dispatch(clearsearch());
     dispatch(
       searchSuccess({
         user: res.data.data.user,
@@ -26,7 +27,7 @@ export const getSearchedProfile = async (dispatch, user) => {
     return res;
   } catch (error) {
     // Handling errors by displaying a toast notification and dispatching failure action
-   
+
     toast("User not Found!");
     dispatch(searchFailure());
     dispatch(clearsearch());
@@ -49,12 +50,12 @@ export const getSearchedPlatforms = async (dispatch, platforms) => {
           }`
         );
         // Checking if the retrieved profile link is not already present in the payload
-        
+
         payload.filter((obj) => obj.profileLink == res.data.data.profileLink)
           .length === 0;
         payload.push(res.data.data);
         // Dispatching platformsFetchSuccess action once all requests are completed
-       
+
         if (payload.length === platforms.length) {
           dispatch(
             platformsFetchSuccess({
@@ -77,8 +78,8 @@ export const getSearchedHeatmaps = async (dispatch, platforms) => {
   try {
     const payload = [];
     await platforms.forEach(async (platform) => {
-       // Sending a GET request to retrieve user details for the current platform
-        
+      // Sending a GET request to retrieve user details for the current platform
+
       const res = await publicRequest.post(
         `/${platform.platformName.toLowerCase()}/userHeatMap`,
         {
@@ -92,7 +93,7 @@ export const getSearchedHeatmaps = async (dispatch, platforms) => {
         .length === 0;
       payload.push(res.data.data);
       // Dispatching heatmapsFetchSuccess action once all requests are completed
-       
+
       if (payload.length === platforms.length) {
         dispatch(
           heatmapsFetchSuccess({
@@ -103,7 +104,7 @@ export const getSearchedHeatmaps = async (dispatch, platforms) => {
     });
   } catch (error) {
     // Handling errors by displaying a toast notification and dispatching failure action
-    
+
     toast("Unable to fetch user details");
     dispatch(searchFailure());
   }

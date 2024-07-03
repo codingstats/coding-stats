@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import searchingPerson from "../assets/searching.jpg";
 import photo1 from "../assets/photo 1.png";
 import photo2 from "../assets/photo 2.png";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   * {
@@ -227,6 +228,12 @@ const Home = () => {
   const searchFunction = () => {
     navigate(`/user/${username}`);
   };
+  useEffect(() => {
+    toast(
+      "If this is the first time you are opening our site, it might take about 40s for server to boot up."
+    );
+    toast("Thank you for your patience.");
+  }, []);
 
   return (
     <>
