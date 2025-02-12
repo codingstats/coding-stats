@@ -85,7 +85,7 @@ export const getSearchedHeatmaps = async (dispatch, platforms) => {
         {
           username: platform.platformHandler,
           userid: platform.platformUserId,
-          year: 2024,
+          year: new Date().getFullYear(),
         }
       );
       console.log(res.data.data);
