@@ -45,7 +45,7 @@ const CumulativeHeatMap = ({ data }) => {
 
   return (
     <HeatMap>
-      <Heatmap heatmapData={combine(data)} year={2024} />
+      <Heatmap heatmapData={combine(data)} year={new Date().getFullYear()} />
     </HeatMap>
   );
 };
