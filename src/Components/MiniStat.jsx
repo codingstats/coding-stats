@@ -247,7 +247,7 @@ const MiniStat = ({ platform, heatmap, siteLogo }) => {
         </Text>
       </Top>
       <HeatMap>
-        {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={2024} />}
+        {heatmap && <Heatmap heatmapData={heatmap?.heatmapData} year={new Date().getFullYear()} />}
       </HeatMap>
     </Container>
   );
