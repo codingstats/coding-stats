@@ -81,7 +81,7 @@ export const getHeatmaps = async (dispatch, platforms) => {
         {
           username: platform.platformHandler,
           userid: platform.platformUserId,
-          year: 2024,
+          year: new Date().getFullYear(),
         }
       );
       console.log(res.data.data);
